@@ -1,2 +1,2 @@
-# LA558
-Primary Repository for the class
+# Example 2
+Page explaining place I would like to visit
