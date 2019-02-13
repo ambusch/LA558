@@ -6,8 +6,56 @@
 <body>
 <h3 style="color:gray;" style="font-family:verdana;" style="text-align:right;">Example 3<br>Anna Busch<br>February 12, 2019</h3><br>
 <h1 style="color:gray;" style="font-family:verdana;" style="text-align:center;">Map of Housing Stock in Story County</h1>
-<p>This map shows the housing stock in Story County, using data from the US Census Bureau</p>
+<p>This map shows the housing stock in Story County, using data from the US Census Bureau.</p>
     <img src="censusmap.png" alt="Census Map" style="height:500px;width:500x"> <br>
+     <style>
+    body {
+      margin: 15px;
+    }
+    .legendBox {
+      display: block;
+      border-style: solid;
+      border-width: 1px;
+      width: 50px;
+      height: 20px;
+      background-color: yellow;
+      /*set a default color*/
+      float: left;
+    }
+    .legendLine {
+      display: block;
+      border-style: solid;
+      border-width: 0px;
+      width: 52px;
+      height: 2px;
+      float: left;
+      margin-top: 8px;
+    }
+    .legendTitle {
+      font-weight: bold;
+      line-height: 1.6;
+    }
+  </style>
+
+    <span class="legendTitle">Legend</span><br>
+        <div class="legendBox" style="background-color:#ddb9bf;"></div>
+        &nbsp 11-38 Houses
+        <p></p>
+        <div class="legendBox" style="background-color:#c27b87;"></div>
+        &nbsp 38-94 Houses
+        <p></p>
+        <div class="legendBox" style="background-color:#a73d4f;"></div>
+        &nbsp 94-193 Houses
+        <p></p>
+      <div class="legendBox" style="background-color:#8c0017;"></div>
+        &nbsp 193-433 Houses
+        <p></p>
+        <div class="legendLine" style="background-color:red"></div>
+        &nbsp Interstate
+        <p></p>
+        <div class="legendLine" style="background-color:black"></div>
+        &nbsp US and State Highways
+        <p></p>
  
 </body>
 </html>
