@@ -9,49 +9,60 @@
   <h3 style="text-align:center;">Javascript</h3>
   </header>
 </head>
-
 <body>
 <div>
-<strong>What is your favorite song?</strong><br>
-Song: <input type="text" id="song" value="my favorite song..."><br>
-	
-Artist: <input type="text" id="artist" value="the artist that performs it..." onchange="changeFunction(this.value)"><br><br>
-	</div>
-<strong></strong><br>
-<input type="radio" name="yes">Yes<br>
-<input type="radio" name="no">No
-
-  <p id="demo"><strong>Do not click this button.</strong></p>
-
-<button type="button" onclick='document.getElementById("demo").innerHTML = "Oops you clicked the button!"'>The Button</button><div>
-	<p id="demo"></p>
+  <strong>This is a function adding 1 and 2:</strong> <p id="demo2"></p>
 
 <script>
 function myFunction(p1, p2) {
   return p1 + p2;
 }
-document.getElementById("demo").innerHTML = myFunction(1, 2);
+document.getElementById("demo2").innerHTML = myFunction(1, 2);
+  </script>
+<strong>This is an array of the alphabet:</strong><div><p id="demo"></p>
+
+<script>
+var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+document.getElementById("demo").innerHTML = alphabet;
 </script>
   
-  <div>
-<strong>Object</strong>
-	<script>
+<strong>This is a loop:</strong><div> 
+<p id="demo4"></p>
+
+<script>
+var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+var text = "";
+var i;
+for (i = 0; i < alphabet.length; i++) {
+  text += alphabet[i] + "<br>";
+}
+document.getElementById("demo4").innerHTML = text;
+</script>
+<strong>This is an object:</strong><div> 
+<p id="demo3"></p>
+<script>
 var animal = {
   type: "dog",
-  lastName : "Doe",
   id     :  1
 };
-document.getElementById("demo").innerHTML =
+document.getElementById("demo3").innerHTML =
 animal["type"];
 </script>
-	  
-<div>a function
-<div>array
-<div>object
-<div>loop
-<div>if then or case
-<div>buttons
-<div>output of the input after it has been manipulated.  This could be displaying the first and last name in the console.
-<div>two user input fields besides input and a button
+
+<strong>What is your favorite song?</strong><br>
+Song: <input type="text" id="song" value="my favorite song..."><br>
+	
+Artist: <input type="text" id="artist" value="the artist that performs it..." onchange="changeFunction(this.value)"><br><br>
+	</div>
+  
+<strong>Please give me an A on this assignment</strong><br>
+<input type="radio" name="yes">Yes<br>
+<input type="radio" name="okay">Yes please
+
+  <p id="demo5"><strong>Do not click this button.</strong></p>
+<button type="button" onclick='document.getElementById("demo5").innerHTML = "Oops you clicked the button!"'>The Button</button>
+  
+  <div>
+
 </body>
 </html>
