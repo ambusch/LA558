@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
+<meta name="description" content="Assignment 2"/>
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" /> <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  
+  <header style="background-color:gray;">
+  <title>Assignment 1</title>
+  <h1 style="text-align:center;">Assignment 1</h1>
+  <h3 style="text-align:center;">Javascript</h3>
+  </header>
+  </head>
+  <body>
+  <style>#map {
+     width: 500px;
+     height: 400px;
+}</style>
+<script>
+var marker;
+var map = L.map('map').setView([43, -93], 10);
+
+
+// add an OpenStreetMap tile layer
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 18
+}).addTo(map);
+
+// Script for adding marker on map click
+function onMapClick(e) {
+    var marker = L.marker(e.latlng, {
+        draggable: true,
+        title: "Resource location",
+        alt: "Resource Location2",
+        riseOnHover: true
+    }).addTo(map)
+        .bindPopup(e.latlng.toString()).openPopup();
+
+    // Update marker on changing it's position
+    marker.on("dragend", function (ev) {
+
+        var chagedPos = ev.target.getLatLng();
+        this.bindPopup(chagedPos.toString()).openPopup();
+	});	
+		
+}
+map.on('click', onMapClick);
+
+
+
+$(document).ready(function () {
+    //map.setView(location, map.getZoom());	
+    $('#Des Moines International Airport').click(function () {
+        c = new L.LatLng(41.5343430, -93.6461350);
+        map.setView(c, 12);
+    });
+
+
+    $('#Pappajohn Sculpture Park').click(function () {
+        map.setView([41.58525, -93.63508], 14);
+    });
+
+      $('#Des Moines Art Center').click(function () {
+        map.setView([41.58421, -93.68036], 14);
+    });
+
+    $('#getZoom').click(function () {
+        x = map.getZoom();
+        $('#theZoom').html(x);
+    });
+	
+	
+	$('#randomMarkers').click(function () {
+var markers = L.featureGroup();
+var maxY = 45;
+var minY = 41;
+var maxX = -95;
+var minX = -90;
+var markerArray = [];
+var marker = L.marker();
+for(var i = 0; i < 5; i++){
+	y = Math.random() * (maxY - minY) + minY;
+	x = Math.random() * (maxX - minX) + minX;
+	//console.log(y+' '+x);
+	markerArray.push(L.marker([y,x]));  			 
+    }
+	var group = L.featureGroup(markerArray).addTo(map);
+    map.fitBounds(group.getBounds());
+  });
+
+});
+
+function add_marker() {
+  //An array of point location and URLS
+  var points = [
+    ["P3", 42.023949, -93.647595, "Des Moines Botanical Garden", "https://www.dmbotanicalgarden.com/"]
+ 
+function onClick(e) {
+  console.log(this.options.win_url);
+  window.open(this.options.win_url);
+}
+</script>
+    <div id="map"></div>
+<button type="button" id="getZoom">Random Zoom</button> Zoom level: <span id="theZoom">-</span><br>
+    <button type="button" id="Des Moines International Airport">Des Moines International Airport</button><br>
+     <button type="button" id="Des Moines Art Center">Des Moines Art Center</button><br>
+	  <button type="button" id="Pappajohn Sculpture Park">Pappajohn Sculpture Park</button><br>
+	  	  <button type="button" id="randomMarkers">5 Random Markers</button><br>
+Click the Des Moines Botanical Garden to be redirected to their website!
+	    </body>
+</html>
+
