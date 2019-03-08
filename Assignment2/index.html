@@ -19,6 +19,12 @@
      height: 400px;
 }</style>
 <script>
+	
+	var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	maxZoom: 19,
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});
+	
 var marker;
 var map = L.map('map').setView([43, -93], 10);
 
@@ -28,7 +34,6 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     maxZoom: 18
 }).addTo(map);
 
-//Add marker
 function onMapClick(e) {
     var marker = L.marker(e.latlng, {
         draggable: true,
@@ -38,7 +43,6 @@ function onMapClick(e) {
     }).addTo(map)
         .bindPopup(e.latlng.toString()).openPopup();
 
-    // Update marker on changing it's position
     marker.on("dragend", function (ev) {
 
         var chagedPos = ev.target.getLatLng();
