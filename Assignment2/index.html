@@ -19,18 +19,16 @@
      height: 400px;
 }</style>
 <script>
+var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	maxZoom: 19,
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});
 	
 var marker;
 var map = L.map('map', {
   center: new L.LatLng(42.0908, -93.6208),
   zoom: 4,
   layers: [OpenStreetMap_Mapnik]
-});
-
-	
-var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	maxZoom: 19,
-	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
 
 function onMapClick(e) {
