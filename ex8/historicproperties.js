@@ -1,4 +1,4 @@
-{
+var historicproperties = {
   "type": "FeatureCollection",
   "features": [
     {
