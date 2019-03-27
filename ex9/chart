@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <title>Exercise 9</title>
+</head>
+<body>
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<script>
+Highcharts.chart('container', {
+    chart: {
+        type: 'line'
+    },
+    title: {
+        text: 'Percentage of Women in Congress 1989-2019'
+    },
+    subtitle: {
+        text: 'Source: pewsocialtrends.org'
+    },
+    xAxis: {
+        categories: ['1989', '1991', '1993', '1995', '1997', '1999', '2001', '2003', '2005', '2007', '2009', '2011', '2013', '2015', '2017', '2019']
+    },
+    yAxis: {
+        title: {
+            text: 'Women in Congress (%)'
+        }
+    },
+    plotOptions: {
+        line: {
+            dataLabels: {
+                enabled: false
+            },
+            enableMouseTracking: true
+        }
+    },
+    series: [{
+        name: 'U.S. Senate',
+        data: [2, 2, 6, 9, 9, 9, 12, 14, 14, 16, 17, 17, 20, 20, 21, 25]
+    }, {
+        name: 'U.S. House',
+        data: [5.7, 6.4, 10.8, 10.8, 11.7, 12.9, 13.6, 13.6, 14.9, 16.3, 17.0, 16.6, 17.9, 19.3, 19.1, 23.4]
+    }]
+});
+</script>
+</body>
+</html>
