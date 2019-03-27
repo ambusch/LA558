@@ -8,18 +8,16 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/offline-exporting.js"></script>
   <title>Exercise 9</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 body {
   margin: 0;
   font-family: Arial, Arial, san-serif;
 }
-
 .topnav {
   overflow: hidden;
   background-color: #333;
 }
-
 .topnav a {
   float: left;
   display: block;
@@ -29,21 +27,17 @@ body {
   text-decoration: none;
   font-size: 17px;
 }
-
 .topnav a:hover {
   background-color: gray;
   color: black;
 }
-
 .active {
   background-color: blue;
   color: white;
 }
-
 .topnav .icon {
   display: none;
 }
-
 @media screen and (max-width: 600px) {
   .topnav a:not(:first-child) {display: none;}
   .topnav a.icon {
@@ -51,7 +45,6 @@ body {
     display: block;
   }
 }
-
 @media screen and (max-width: 600px) {
   .topnav.responsive {position: relative;}
   .topnav.responsive .icon {
@@ -68,16 +61,16 @@ body {
 </style>
 </head>
 <body>
-
-<div class="topnav" id="myTopnav">
+  <div class="topnav" id="myTopnav">
   <a href="index" class="active">Home</a>
-  <a href="map">Apportionment Map</a>
-  <a href="chart">Women in Congress</a>
+  <a href="map.html">Apportionment Map</a>
+  <a href="chart.html">Women in Congress</a>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>
 </div>
-	<script>
+
+<script>
 function myFunction() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
@@ -87,8 +80,8 @@ function myFunction() {
   }
 }
 </script>
-</head>
-<body>
+
+
 <div id="container"></div>
 <style>
 #container {
