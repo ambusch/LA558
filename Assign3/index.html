@@ -1,4 +1,30 @@
-//baselayers
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" /> <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+	  
+	<script src="https://indicator.extension.iastate.edu/classes/leaflet-ajax-gh-pages/dist/leaflet.ajax.min.js"></script>
+    
+<script src="https://ambusch.github.io/LA558/Assign3/fortune1000.geojson"></script>
+  <script src="https://ambusch.github.io/LA558/Assign3/fortune500hq.geojson"></script>
+  
+  <script src=""></script>
+  
+  <title>Assignment 3</title>
+</head>
+<body>
+
+<div id="map"></div>
+  <style>
+html, body, 
+
+#map { height: 480px; margin: 0; padding: 0; }    
+  </style>
+  <script>
+    //baselayers
 var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
 	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
 });
@@ -62,3 +88,7 @@ var geojsonLayer = new L.GeoJSON.AJAX(url , {
 		layer.bindTooltip(feature.properties.NAME);
     }
 }).addTo(map);
+
+  </script>
+</body>
+</html>
