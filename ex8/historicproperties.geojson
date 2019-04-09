@@ -7,7 +7,7 @@
         "stroke": "#FF0000",
         "stroke-width": 2,
         "stroke-opacity": 1,
-        "number of historic properties": 1
+        "number_historic_properties": 1
       },
       "geometry": {
         "type": "LineString",
@@ -37,7 +37,7 @@
         "stroke": "#FF0000",
         "stroke-width": 2,
         "stroke-opacity": 1,
-        "number of historic properties": 0
+        "number_historic_properties": 0
       },
       "geometry": {
         "type": "LineString",
@@ -59,7 +59,7 @@
         "stroke": "#FF0000",
         "stroke-width": 2,
         "stroke-opacity": 1,
-        "number of historic properties": 0
+        "number_historic_properties": 0
       },
       "geometry": {
         "type": "LineString",
@@ -81,7 +81,7 @@
         "stroke": "#FF0000",
         "stroke-width": 2,
         "stroke-opacity": 1,
-        "number of historic properties": 0
+        "number_historic_properties": 0
       },
       "geometry": {
         "type": "LineString",
@@ -107,7 +107,7 @@
         "stroke": "#FF0000",
         "stroke-width": 2,
         "stroke-opacity": 1,
-        "number of historic properties": 0
+        "number_historic_properties": 0
       },
       "geometry": {
         "type": "LineString",
@@ -145,7 +145,7 @@
         "stroke": "#FF0000",
         "stroke-width": 2,
         "stroke-opacity": 1,
-        "number of historic properties": 0
+        "number_historic_properties": 0
       },
       "geometry": {
         "type": "LineString",
@@ -175,7 +175,7 @@
         "stroke": "#FF0000",
         "stroke-width": 2,
         "stroke-opacity": 1,
-        "number of historic properties": 0
+        "number_historic_properties": 0
       },
       "geometry": {
         "type": "LineString",
@@ -205,7 +205,7 @@
         "stroke": "#FF0000",
         "stroke-width": 2,
         "stroke-opacity": 1,
-        "number of historic properties": 0
+        "number_historic_properties": 0
       },
       "geometry": {
         "type": "LineString",
@@ -227,7 +227,7 @@
         "stroke": "#FF0000",
         "stroke-width": 2,
         "stroke-opacity": 1,
-        "number of historic properties": 0
+        "number_historic_properties": 0
       },
       "geometry": {
         "type": "LineString",
@@ -249,7 +249,7 @@
         "stroke": "#FF0000",
         "stroke-width": 2,
         "stroke-opacity": 1,
-        "number of historic properties": 0
+        "number_historic_properties": 0
       },
       "geometry": {
         "type": "LineString",
@@ -271,7 +271,7 @@
         "stroke": "#FF0000",
         "stroke-width": 2,
         "stroke-opacity": 1,
-        "number of historic properties": 0
+        "number_historic_properties": 0
       },
       "geometry": {
         "type": "LineString",
@@ -293,7 +293,7 @@
         "marker-color": "#FFFF00",
         "marker-size": "medium",
         "marker-symbol": "star",
-        "historic property": "Iowa House Bed & Breakfast (405 Hayward Avenue) "
+        "historic_property": "Iowa House Bed & Breakfast (405 Hayward Avenue) "
       },
       "geometry": {
         "type": "Point",
@@ -309,7 +309,7 @@
         "marker-color": "#FFFF00",
         "marker-size": "medium",
         "marker-symbol": "star",
-        "historic property": "Delta Upsilon Fraternity (117 Ash Avenue)"
+        "historic_property": "Delta Upsilon Fraternity (117 Ash Avenue)"
       },
       "geometry": {
         "type": "Point",
@@ -325,7 +325,7 @@
         "marker-color": "#FFFF00",
         "marker-size": "medium",
         "marker-symbol": "star",
-        "historic property": "Gilmour B. and Edith Craig Mcdonald House (517 Ash Avenue)"
+        "historic_property": "Gilmour B. and Edith Craig Mcdonald House (517 Ash Avenue)"
       },
       "geometry": {
         "type": "Point",
