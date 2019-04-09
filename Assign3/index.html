@@ -50,10 +50,10 @@ var map = L.map('map', {
 		var overlayMaps = {
 			"Justice Map: Income": JusticeMap_income,
     };
-var myLayer = L.geoJSON(geojson.json).addTo(map);
 
+L.geoJSON(geojson.json).addTo(map);
 
-L.control.layers(baseMaps, overlayMaps, myLayer).addTo(map)
+L.control.layers(baseMaps, overlayMaps).addTo(map)
   </script>
   
 </body>
