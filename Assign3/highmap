@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+<script src="https://code.highcharts.com/modules/tilemap.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/offline-exporting.js"></script>
+  <title>Exercise 9</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script>
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>
+
+
+<div id="container"></div>
+<style>
+#container {
+	min-width: 420px;
+	max-width: 650px;
+	margin: 0 auto;
+}
+</style>
+<script>
+Highcharts.chart('container', {
+    chart: {
+        type: 'tilemap',
+        inverted: true,
+        height: '80%'
+    },
+    title: {
+        text: 'Location of Fortune 500 Company Headquarters 2018'
+    },
+    subtitle: {
+        text: 'Source:<a href="https://www.ceo.com/miscellaneous/states-with-the-most-fortune-500-companies"> CEO.com</a>'
+    },
+    xAxis: {
+        visible: false
+    },
+    yAxis: {
+        visible: false
+    },
+    colorAxis: {
+        dataClasses: [{
+            from: 0,
+            color: '#D6EAF8',
+            name: '0'
+        }, {
+            from: 1,
+            to: 5,
+            color: '#85C1E9',
+            name: '1-5'
+         }, {
+            from: 6,
+            to: 15,
+            color: '#85C1E9',
+            name: '6-15'
+        }, {
+            from: 16,
+            to: 25,
+            color: '#2E86C1',
+            name: '16-25'
+        }, {
+            from: 26,
+            color: '#21618C',
+            name: '>26'
+        }]
+    },
+    tooltip: {
+        headerFormat: '',
+        pointFormat: 'The number of Fortune 500 Companies in <b> {point.name}</b> is <b>{point.value}</b> companies.'
+    },
+    plotOptions: {
+        series: {
+            dataLabels: {
+                enabled: true,
+                format: '{point.hc-a2}',
+                color: '#000000',
+                style: {
+                    textOutline: false
+                }
+            }
+        }
+    },
+    series: [{
+        name: '',
+        data: [{
+            'hc-a2': 'AL',
+            name: 'Alabama',
+            region: 'South',
+            x: 6,
+            y: 7,
+            value: 1
+        }, {
+            'hc-a2': 'AK',
+            name: 'Alaska',
+            region: 'West',
+            x: 0,
+            y: 0,
+            value: 0
+        }, {
+            'hc-a2': 'AZ',
+            name: 'Arizona',
+            region: 'West',
+            x: 5,
+            y: 3,
+            value: 6
+        }, {
+            'hc-a2': 'AR',
+            name: 'Arkansas',
+            region: 'South',
+            x: 5,
+            y: 6,
+            value: 6
+        }, {
+            'hc-a2': 'CA',
+            name: 'California',
+            region: 'West',
+            x: 5,
+            y: 2,
+            value: 54
+        }, {
+            'hc-a2': 'CO',
+            name: 'Colorado',
+            region: 'West',
+            x: 4,
+            y: 3,
+            value: 10
+        }, {
+            'hc-a2': 'CT',
+            name: 'Connecticut',
+            region: 'Northeast',
+            x: 3,
+            y: 11,
+            value: 16
+        }, {
+            'hc-a2': 'DC',
+            name: 'District of Colombia',
+            region: 'South',
+            x: 5,
+            y: 10,
+            value: 3
+        }, {
+            'hc-a2': 'DE',
+            name: 'Delaware',
+            region: 'South',
+            x: 4,
+            y: 9,
+            value: 2
+        }, {
+            'hc-a2': 'FL',
+            name: 'Florida',
+            region: 'South',
+            x: 8,
+            y: 8,
+            value: 15
+        }, {
+            'hc-a2': 'GA',
+            name: 'Georgia',
+            region: 'South',
+            x: 7,
+            y: 8,
+            value: 16
+        }, {
+            'hc-a2': 'HI',
+            name: 'Hawaii',
+            region: 'West',
+            x: 8,
+            y: 0,
+            value: 0
+        }, {
+            'hc-a2': 'ID',
+            name: 'Idaho',
+            region: 'West',
+            x: 3,
+            y: 2,
+            value: 1
+        }, {
+            'hc-a2': 'IL',
+            name: 'Illinois',
+            region: 'Midwest',
+            x: 3,
+            y: 6,
+            value: 32
+        }, {
+            'hc-a2': 'IN',
+            name: 'Indiana',
+            region: 'Midwest',
+            x: 3,
+            y: 7,
+            value: 6
+        }, {
+            'hc-a2': 'IA',
+            name: 'Iowa',
+            region: 'Midwest',
+            x: 3,
+            y: 5,
+            value: 2
+        }, {
+            'hc-a2': 'KS',
+            name: 'Kansas',
+            region: 'Midwest',
+            x: 5,
+            y: 5,
+            value: 3
+        }, {
+            'hc-a2': 'KY',
+            name: 'Kentucky',
+            region: 'South',
+            x: 4,
+            y: 6,
+            value: 5
+        }, {
+            'hc-a2': 'LA',
+            name: 'Louisiana',
+            region: 'South',
+            x: 6,
+            y: 5,
+            value: 3
+        }, {
+            'hc-a2': 'ME',
+            name: 'Maine',
+            region: 'Northeast',
+            x: 0,
+            y: 11,
+            value: 0
+        }, {
+            'hc-a2': 'MD',
+            name: 'Maryland',
+            region: 'South',
+            x: 4,
+            y: 8,
+            value: 4
+        }, {
+            'hc-a2': 'MA',
+            name: 'Massachusetts',
+            region: 'Northeast',
+            x: 2,
+            y: 10,
+            value: 12
+        }, {
+            'hc-a2': 'MI',
+            name: 'Michigan',
+            region: 'Midwest',
+            x: 2,
+            y: 7,
+            value: 19
+        }, {
+            'hc-a2': 'MN',
+            name: 'Minnesota',
+            region: 'Midwest',
+            x: 2,
+            y: 4,
+            value: 19
+        }, {
+            'hc-a2': 'MS',
+            name: 'Mississippi',
+            region: 'South',
+            x: 6,
+            y: 6,
+            value: 0
+        }, {
+            'hc-a2': 'MO',
+            name: 'Missouri',
+            region: 'Midwest',
+            x: 4,
+            y: 5,
+            value: 10
+        }, {
+            'hc-a2': 'MT',
+            name: 'Montana',
+            region: 'West',
+            x: 2,
+            y: 2,
+            value: 0
+        }, {
+            'hc-a2': 'NE',
+            name: 'Nebraska',
+            region: 'Midwest',
+            x: 4,
+            y: 4,
+            value: 5
+        }, {
+            'hc-a2': 'NV',
+            name: 'Nevada',
+            region: 'West',
+            x: 4,
+            y: 2,
+            value: 4
+        }, {
+            'hc-a2': 'NH',
+            name: 'New Hampshire',
+            region: 'Northeast',
+            x: 1,
+            y: 11,
+            value: 0
+        }, {
+            'hc-a2': 'NJ',
+            name: 'New Jersey',
+            region: 'Northeast',
+            x: 3,
+            y: 10,
+            value: 21
+        }, {
+            'hc-a2': 'NM',
+            name: 'New Mexico',
+            region: 'West',
+            x: 6,
+            y: 3,
+            value: 0
+        }, {
+            'hc-a2': 'NY',
+            name: 'New York',
+            region: 'Northeast',
+            x: 2,
+            y: 9,
+            value: 52
+        }, {
+            'hc-a2': 'NC',
+            name: 'North Carolina',
+            region: 'South',
+            x: 5,
+            y: 9,
+            value: 12
+        }, {
+            'hc-a2': 'ND',
+            name: 'North Dakota',
+            region: 'Midwest',
+            x: 2,
+            y: 3,
+            value: 0
+        }, {
+            'hc-a2': 'OH',
+            name: 'Ohio',
+            region: 'Midwest',
+            x: 3,
+            y: 8,
+            value: 27
+        }, {
+            'hc-a2': 'OK',
+            name: 'Oklahoma',
+            region: 'South',
+            x: 6,
+            y: 4,
+            value: 4
+        }, {
+            'hc-a2': 'OR',
+            name: 'Oregon',
+            region: 'West',
+            x: 4,
+            y: 1,
+            value: 2
+        }, {
+            'hc-a2': 'PA',
+            name: 'Pennsylvania',
+            region: 'Northeast',
+            x: 3,
+            y: 9,
+            value: 21
+        }, {
+            'hc-a2': 'RI',
+            name: 'Rhode Island',
+            region: 'Northeast',
+            x: 2,
+            y: 11,
+            value: 3
+        }, {
+            'hc-a2': 'SC',
+            name: 'South Carolina',
+            region: 'South',
+            x: 6,
+            y: 8,
+            value: 1
+        }, {
+            'hc-a2': 'SD',
+            name: 'South Dakota',
+            region: 'Midwest',
+            x: 3,
+            y: 4,
+            value: 0
+        }, {
+            'hc-a2': 'TN',
+            name: 'Tennessee',
+            region: 'South',
+            x: 5,
+            y: 7,
+            value: 9
+        }, {
+            'hc-a2': 'TX',
+            name: 'Texas',
+            region: 'South',
+            x: 7,
+            y: 4,
+            value: 52
+        }, {
+            'hc-a2': 'UT',
+            name: 'Utah',
+            region: 'West',
+            x: 5,
+            y: 4,
+            value: 1
+        }, {
+            'hc-a2': 'VT',
+            name: 'Vermont',
+            region: 'Northeast',
+            x: 1,
+            y: 10,
+            value: 0
+        }, {
+            'hc-a2': 'VA',
+            name: 'Virginia',
+            region: 'South',
+            x: 5,
+            y: 8,
+            value: 23
+        }, {
+            'hc-a2': 'WA',
+            name: 'Washington',
+            region: 'West',
+            x: 2,
+            y: 1,
+            value: 8
+        }, {
+            'hc-a2': 'WV',
+            name: 'West Virginia',
+            region: 'South',
+            x: 4,
+            y: 7,
+            value: 0
+        }, {
+            'hc-a2': 'WI',
+            name: 'Wisconsin',
+            region: 'Midwest',
+            x: 2,
+            y: 5,
+            value: 10
+        }, {
+            'hc-a2': 'WY',
+            name: 'Wyoming',
+            region: 'West',
+            x: 3,
+            y: 3,
+            value: 0
+        }]
+    }]
+});
+</script>
+</body>
+</html>
