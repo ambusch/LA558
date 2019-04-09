@@ -92,7 +92,7 @@ div.content {
   <style>
 html, body, 
 
-#map { height: 480px; margin: 0; padding: 0; }    
+#map { height: 500px; width: 700px; margin: 0; padding: 0; }   
   </style>
   <script>
     //baselayers
@@ -110,7 +110,7 @@ var JusticeMap_income = L.tileLayer('http://www.justicemap.org/tile/{size}/incom
 //add map
 var map = L.map('map', {
     		center: new L.LatLng(42.0908, -93.6208),
-    		zoom: 8,
+    		zoom: 4,
     		layers: [Esri_WorldStreetMap]
 		});
 //layer controls
