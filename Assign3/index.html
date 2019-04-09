@@ -43,6 +43,7 @@ var map = L.map('map', {
 			"Justice Map: Income": JusticeMap_income,	
 		};
 	  var layerOptions = L.geoJSON(geojson.json).addTo(map);
+        });
   
 		L.control.layers(baseMaps, overlayMaps, layerOptions).addTo(map)  
   </script>
