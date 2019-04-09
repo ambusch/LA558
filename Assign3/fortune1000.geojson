@@ -9,7 +9,7 @@
         "marker-symbol": "commercial",
         "Name": "Principal Financial Group, Inc.",
         "Rank": 210,
-        "Years on Fortune 500": 24
+        "Years": 24
       },
       "geometry": {
         "type": "Point",
@@ -27,7 +27,7 @@
         "marker-symbol": "commercial",
         "Name": "Rockwell Collins, Inc.",
         "Rank": 415,
-        "Years on Fortune 500": 7
+        "Years": 7
       },
       "geometry": {
         "type": "Point",
@@ -45,7 +45,7 @@
         "marker-symbol": "commercial",
         "Name": "Casey's General Stores, Inc.",
         "Rank": 425,
-        "Years on Fortune 500": 8
+        "Years": 8
       },
       "geometry": {
         "type": "Point",
@@ -63,7 +63,7 @@
         "marker-symbol": "commercial",
         "Name": "American Equity Investment Life Holding Company",
         "Rank": 614,
-        "Years on Fortune 500": "n/a"
+        "Years": "n/a"
       },
       "geometry": {
         "type": "Point",
@@ -81,7 +81,7 @@
         "marker-symbol": "commercial",
         "Name": "HNI Corporation",
         "Rank": 913,
-        "Years on Fortune 500": "n/a"
+        "Years": "n/a"
       },
       "geometry": {
         "type": "Point",
@@ -99,7 +99,7 @@
         "marker-symbol": "commercial",
         "Name": "Renewable Energy Group, Inc.",
         "Rank": 918,
-        "Years on Fortune 500": "n/a"
+        "Years": "n/a"
       },
       "geometry": {
         "type": "Point",
