@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" /> <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+	  
+	<script src="https://indicator.extension.iastate.edu/classes/leaflet-ajax-gh-pages/dist/leaflet.ajax.min.js"></script>
+    
+<script src="https://ambusch.github.io/LA558/Assign3/fortune1000.geojson"></script>
+  
+  <title>Assignment 3</title>
+</head>
+<body>
+  <style>
+    html, body, 
+#map { height: 500px; margin: 0; padding: 0; }
+  </style>
+<div id="map"></div>
+<script>
+//baselayers
+var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+});
+var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+});
+var JusticeMap_income = L.tileLayer('http://www.justicemap.org/tile/{size}/income/{z}/{x}/{y}.png', {
+	attribution: '<a href="http://www.justicemap.org/terms.php">Justice Map</a>',
+	size: 'county',
+	bounds: [[14, -180], [72, -56]]
+});
+//add map
+var map = L.map('map', {
+    		center: new L.LatLng(42.0908, -93.6208),
+    		zoom: 8,
+    		layers: [Esri_WorldStreetMap]
+		});
+//layer controls
+		var baseMaps = {
+			"ESRI Street Map": Esri_WorldStreetMap,
+			"ESRI World Imagery": Esri_WorldImagery,
+		};
+       		
+		var overlayMaps = {
+			"Justice Map: Income": JusticeMap_income,
+		};
+	
+		L.control.layers(baseMaps, overlayMaps).addTo(map)
+    
+    //set color of marker
+function getColor(d) {
+  return d <= '1' ? 'green' :
+    "green";
+}
+function style(feature) {
+    return {
+        fillColor: getColor(feature.properties.NAME),
+        weight: 1,
+        opacity: 1,
+        color: 'green',
+        dashArray: '2',
+        fillOpacity: 0.7
+    };
+}
+url = "https://ambusch.github.io/LA558/Assign3/fortune1000.geojson";
+var geojsonLayer = new L.GeoJSON.AJAX(url , {
+	style: style,
+	onEachFeature: function (feature, layer) {
+        htmlText = "<strong>" + feature.properties.Name+ "</strong><br>Rank: <b>"  + feature.properties.Rank + "</b><br>Years on Fortune 1000: <b>"  + feature.properties.Years + "</b>";
+        layer.bindPopup(htmlText);
+		layer.bindTooltip(feature.properties.NAME);
+    }
+}).addTo(map);
+  </script>
+  
+</body>
+</html>
