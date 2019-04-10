@@ -11,8 +11,38 @@
 <script src="https://ambusch.github.io/LA558/Assign3/fortune1000.geojson"></script>
   
   <title>Assignment 3</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+.topnav {
+  overflow: hidden;
+  background-color: #0B2161;
+}
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.topnav a:hover {
+  background-color: #CEE3F6;
+  color: black;
+}
+</style>
 </head>
-<body>
+<body>	
+<div class="topnav">
+  <a href="index.html">Home</a>
+  <a href="highmap.html">Highmap</a>
+  <a href="fortune1000.geojson">Iowa Fortune 1000 Companies</a>
+  <a href="leaflet.html" style="float:center">Leaflet Map</a>
+</div>
   <style>
     html, body, 
 #map { height: 500px; margin: 0; padding: 0; }
