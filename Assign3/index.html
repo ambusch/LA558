@@ -17,81 +17,133 @@
 <script src="https://code.highcharts.com/modules/offline-exporting.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Assignment 3</title>
-	<style>
+<style>
+* {
+  box-sizing: border-box;
+}
+
 body {
-  margin: 0;
-  font-family: "Lato", sans-serif;
+  font-family: Arial;
+  padding: 10px;
+  background: #f1f1f1;
 }
 
-.sidebar {
-  margin: 0;
-  padding: 0;
-  width: 200px;
-  background-color: #BDBDBD;
-  position: fixed;
-  height: 100%;
-  overflow: auto;
+/* Header/Blog Title */
+.header {
+  padding: 30px;
+  text-align: center;
+  background: white;
 }
 
-.sidebar a {
+.header h1 {
+  font-size: 50px;
+}
+
+/* Style the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: #0B2161;
+}
+
+/* Style the topnav links */
+.topnav a {
+  float: left;
   display: block;
-  color: white;
-  padding: 16px;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
   text-decoration: none;
 }
- 
-.sidebar a.active {
-  background-color: #0431B4;
-  color: white;
+
+/* Change color on hover */
+.topnav a:hover {
+  background-color: #CEE3F6;
+  color: black;
 }
 
-.sidebar a:hover:not(.active) {
-  background-color: #81BEF7;
-  color: white;
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {   
+  float: left;
+  width: 75%;
 }
 
-div.content {
-  margin-left: 200px;
-  padding: 1px 16px;
-  height: 1000px;
+/* Right column */
+.rightcolumn {
+  float: left;
+  width: 25%;
+  background-color: #f1f1f1;
+  padding-left: 20px;
 }
 
-@media screen and (max-width: 700px) {
-  .sidebar {
+/* Fake image */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+  background-color: white;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+  margin-top: 20px;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {   
     width: 100%;
-    height: auto;
-    position: relative;
+    padding: 0;
   }
-  .sidebar a {float: left;}
-  div.content {margin-left: 0;}
 }
 
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
 @media screen and (max-width: 400px) {
-  .sidebar a {
-    text-align: center;
+  .topnav a {
     float: none;
+    width: 100%;
   }
 }
 </style>
 </head>
 <body>
-<div class="sidebar">
-  <a class="active" href="#home">Home</a>
-  <a href="#highmap.html">News</a>
-  <a href="#fortune1000.geojson">Contact</a>
-  <a href="#leaflet.html">Leaflet</a>
+
+<div class="header">
+  <h1>Fortune 500 Data</h1>
+  <p>Location of Company Headquarters and </p>
 </div>
 
-<div class="content">
-  <h2>Fortune 500 Companies</h2>
-  <p>The Fortune 500 is a list</p>
-  <p>The following map shows the locations of the Fortune 500 headquarters.</p>
-  <h3>Fortune 500 Company Headquarters</h3>
+<div class="topnav">
+  <a href="#index.html">Home</a>
+  <a href="#highmap.html">Highmap</a>
+  <a href="#fortune1000.geojson">Iowa Fortune 1000 Companies</a>
+  <a href="#leaflet.html" style="float:center">Leaflet Map</a>
 </div>
-<div id="map"></div>
-  <style>
+
+<div class="row">
+  <div class="leftcolumn">
+    <div class="card">
+      <h2 style="font-family:Lato;">Fortune 500 Company Headquarters</h2>
+      <h5  style="font-family:Lato;"><a href="https://hifld-geoplatform.opendata.arcgis.com/datasets/a4d813c396934fc09d0b801a0c491852_0?geometry=-99.532%2C28.348%2C-64.42%2C40.951">Source</a></h5>
+      <div id="map"></div>
+      <style>
 html, body, 
-
 #map { height: 500px; width: 700px; margin: 0; padding: 0; }   
   </style>
   <script>
@@ -127,7 +179,6 @@ var map = L.map('map', {
     
 var breaks = [100, 200, 300, 400, 500];
 var labels = ['100', '200', '300', '400', '500'];
-
 //marker
 function getColor(RANK) {
   return RANK <= '100' ? '#9F0410' :
@@ -137,7 +188,6 @@ function getColor(RANK) {
     RANK <= '500' ? "#253CBB" :
     "green";
 }
-
 function style(feature) {
     return {
         fillColor: getColor(feature.properties.RANK),
@@ -148,7 +198,6 @@ function style(feature) {
         fillOpacity: 0.7
     };
 }
-
 //add geoJSON
 url = "https://ambusch.github.io/LA558/Assign3/fortune500hq.geojson";
 var geojsonLayer = new L.GeoJSON.AJAX(url , {
@@ -159,22 +208,17 @@ var geojsonLayer = new L.GeoJSON.AJAX(url , {
 		layer.bindTooltip(feature.properties.NAME);
     }
 }).addTo(map);
-
   </script>
-	
-	<script>
-function myFunction() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
-  }
-}
-</script>
-
-
-<div id="container"></div>
+      <p>Some text..</p>
+      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+    </div>
+    
+    <div class="card">
+      <h2 style="font-family:Lato;">States with Most Fortune 500 Headquarters</h2>
+      <h5  style="font-family:Lato;"><a href="https://hifld-geoplatform.opendata.arcgis.com/datasets/a4d813c396934fc09d0b801a0c491852_0?geometry=-99.532%2C28.348%2C-64.42%2C40.951">Source</a></h5>
+      <div class="fakeimg" style="height:200px;">Image</div>
+      <p>Some text..</p>
+      <div id="container"></div>
 <style>
 #container {
 	min-width: 420px;
@@ -606,5 +650,20 @@ Highcharts.chart('container', {
     }]
 });
 </script>
+      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+    </div>
+  </div>
+  <div class="rightcolumn">
+    <div class="card">
+      <h2  style="font-family:Lato;">Fortune 500</h2>
+      <p  style="font-family:Lato;">Some text about me in culpa qui officia deserunt mollit anim..</p>
+    </div>
+</div>
+</div>
+
+<div class="footer">
+  <h2>To read more, click here.</h2>
+</div>
+
 </body>
 </html>
