@@ -10,7 +10,10 @@
     
 <script src="https://ambusch.github.io/LA558/Assign3/fortune1000.geojson"></script>
 <script src="https://ambusch.github.io/LA558/Assign3/fortune500hq.geojson"></script>  
-<script src=""></script>
+<script	 src="https://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js">
+    </script>	
+		
+<script src="https://code.jquery.com/jquery-3.0.0.js"></script>
 <script src="https://code.highcharts.com/maps/highmaps.js"></script>
 <script src="https://code.highcharts.com/modules/tilemap.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -21,29 +24,24 @@
 * {
   box-sizing: border-box;
 }
-
 body {
   font-family: Arial;
   padding: 10px;
   background: #f1f1f1;
 }
-
 /* Formatting Webpage */
 .header {
   padding: 30px;
   text-align: center;
   background: white;
 }
-
 .header h1 {
   font-size: 50px;
 }
-
 .topnav {
   overflow: hidden;
   background-color: #0B2161;
 }
-
 .topnav a {
   float: left;
   display: block;
@@ -52,70 +50,60 @@ body {
   padding: 14px 16px;
   text-decoration: none;
 }
-
 .topnav a:hover {
   background-color: #CEE3F6;
   color: black;
 }
-
 .leftcolumn {   
   float: left;
   width: 75%;
 }
-
 .rightcolumn {
   float: left;
   width: 25%;
   background-color: #f1f1f1;
   padding-left: 20px;
 }
-
 .fakeimg {
   background-color: #aaa;
   width: 100%;
   padding: 20px;
 }
-
 .card {
   background-color: white;
   padding: 20px;
   margin-top: 20px;
 }
-
 .row:after {
   content: "";
   display: table;
   clear: both;
 }
-
 .footer {
   padding: 20px;
   text-align: center;
   background: #ddd;
   margin-top: 20px;
 }
-
+  
 @media screen and (max-width: 800px) {
   .leftcolumn, .rightcolumn {   
     width: 100%;
     padding: 0;
   }
 }
-
 @media screen and (max-width: 400px) {
   .topnav a {
     float: none;
     width: 100%;
   }
 }
-
 </style>
 </head>
 <body>
 
 <div class="header">
   <h1>Fortune 500 Data</h1>
-  <p>Location of Company Headquarters and </p>
 </div>
 
 <div class="topnav">
@@ -128,15 +116,25 @@ body {
 <div class="row">
   <div class="leftcolumn">
     <div class="card">
-      <h2 style="font-family:Lato;">Fortune 500 Company Headquarters</h2>
+      <h2 style="font-family:Lato;">Fortune 500 Company Headquarters Heatmap</h2>
       <h5  style="font-family:Lato;"><a href="https://hifld-geoplatform.opendata.arcgis.com/datasets/a4d813c396934fc09d0b801a0c491852_0?geometry=-99.532%2C28.348%2C-64.42%2C40.951">Source</a></h5>
-      <div id="map"></div>
-      <style>
-html, body, 
-#map { height: 500px; width: 700px; margin: 0; padding: 0; }   
-  </style>
-  <script>
-    //baselayers
+<div id="map2"></div>
+    
+    <style>
+ html, body, #map2 {
+    height: 700px;
+    margin: 0;
+    padding: 0;     
+    </style>
+    
+    <script>
+var map2;
+var heatArray = [];
+      
+//Load geojson file
+myURL =  "https://ambusch.github.io/LA558/Assign3/fortune500hq.geojson";
+
+//baselayers
 var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
 	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
 });
@@ -148,12 +146,103 @@ var JusticeMap_income = L.tileLayer('http://www.justicemap.org/tile/{size}/incom
 	size: 'county',
 	bounds: [[14, -180], [72, -56]]
 });
+
+//create the map
+map2 = L.map('map2', {
+  center: new L.LatLng(42.03, -93.651),
+  zoom: 4,
+  layers: [Esri_WorldStreetMap]
+});
+
+$.getJSON(myURL, function(data) {
+  $.each(data.features, function(key, val) {
+    geometry = val.geometry;
+    properties = val.properties;
+    heatArray.push([geometry.coordinates[1], geometry.coordinates[0], val.properties.myURL]);
+
+    var marker = L.marker([geometry.coordinates[1], geometry.coordinates[0]], {
+      title: val.properties.NAME,
+      opacity: 0,
+    }).addTo(map2);
+    marker.bindPopup("Name: " + val.properties.NAME);
+  });
+
+  
+//generate heatmap
+  makeHeat();
+
+});
+
+function makeHeat() {
+  console.log(heatArray.length);
+
+  var heatMap1 = L.heatLayer(heatArray, {
+    minOpacity: 0.4,
+    maxZoom: 10,
+    max: 1,
+    radius: 25,
+    blur: 15,
+    gradient: {
+      0.00: 'white',
+      0.25: 'lime',
+      0.5: 'yellow',
+      1: 'red'
+    } 
+  });
+  heatMap1.addTo(map2); 
+
+layerControl.addOverlay(heatMap1, "Heat Map");
+}
+
+//layer controls
+		var baseMaps = {
+			"ESRI Street Map": Esri_WorldStreetMap,
+			"ESRI World Imagery": Esri_WorldImagery,
+		};
+       		
+		var overlayMaps = {
+			"Justice Map: Income": JusticeMap_income,
+		};
+
+layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map2); 
+      
+      
+    </script>
+      <p>Some text..</p>
+      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+    </div>
+    
+    <div class="card">
+      <h2 style="font-family:Lato;">Fortune 500 Company Headquarters</h2>
+      <h5  style="font-family:Lato;"><a href="https://hifld-geoplatform.opendata.arcgis.com/datasets/a4d813c396934fc09d0b801a0c491852_0?geometry=-99.532%2C28.348%2C-64.42%2C40.951">Source</a></h5>
+      <div id="map"></div>
+      
+      <style>
+html, body, 
+#map { height: 500px; margin: 0; padding: 0; }   
+  </style>
+      
+<script>
+//baselayers
+var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+});
+var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+});
+var JusticeMap_income = L.tileLayer('http://www.justicemap.org/tile/{size}/income/{z}/{x}/{y}.png', {
+	attribution: '<a href="http://www.justicemap.org/terms.php">Justice Map</a>',
+	size: 'county',
+	bounds: [[14, -180], [72, -56]]
+});
+  
 //add map
 var map = L.map('map', {
     		center: new L.LatLng(42.0908, -93.6208),
     		zoom: 4,
     		layers: [Esri_WorldStreetMap]
 		});
+
 //layer controls
 		var baseMaps = {
 			"ESRI Street Map": Esri_WorldStreetMap,
@@ -164,7 +253,7 @@ var map = L.map('map', {
 			"Justice Map: Income": JusticeMap_income,
 		};
 	
-		L.control.layers(baseMaps, overlayMaps).addTo(map)
+L.control.layers(baseMaps, overlayMaps).addTo(map)
     
 var breaks = [100, 200, 300, 400, 500];
 var labels = ['100', '200', '300', '400', '500'];
@@ -198,15 +287,14 @@ var geojsonLayer = new L.GeoJSON.AJAX(url , {
     }
 }).addTo(map);
   </script>
-      <p>Some text..</p>
-      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+      <p>The Fortune 500 describes the 500 largest corporations in the United States.</p>
+      <p>This map makes it clear that most of the Fortune 500 headquarters are concentrated on the Eastern half of the United States, particularly around the New York region. Concentrations of company headquarters are understandably around urban centers.</p>
     </div>
     
     <div class="card">
       <h2 style="font-family:Lato;">States with Most Fortune 500 Headquarters</h2>
-      <h5  style="font-family:Lato;"><a href="https://hifld-geoplatform.opendata.arcgis.com/datasets/a4d813c396934fc09d0b801a0c491852_0?geometry=-99.532%2C28.348%2C-64.42%2C40.951">Source</a></h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <p>Some text..</p>
+      <h5  style="font-family:Lato;"><a>Source: CEO.com</a></h5>
+      <p>This map shows the counts of states with Fortune 500 company headquarters.</p>
       <div id="container"></div>
 <style>
 #container {
@@ -639,7 +727,7 @@ Highcharts.chart('container', {
     }]
 });
 </script>
-      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+      <p>The states with the largest amount of Fortune 500 company headquarters are California, New York, Texas, Illinois, and Ohio.</p>
     </div>
   </div>
   <div class="rightcolumn">
@@ -649,6 +737,7 @@ Highcharts.chart('container', {
     </div>
 </div>
 </div>
+   
 
 <div class="footer">
   <h2>To read more, click here.</h2>
