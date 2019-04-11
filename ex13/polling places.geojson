@@ -1,0 +1,365 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7E7E7E",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "Wilson Toyota of Ames",
+        "Address": "2212 S. Duff Ave.",
+        "Precinct": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.609762,
+          42.004833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7E7E7E",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "University Baptist Church",
+        "Address": "2400 Mortensen Parkway",
+        "Precinct": 2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.646263,
+          42.010755
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7E7E7E",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "Human Services Center",
+        "Address": "126 S. Kellogg Ave.",
+        "Precinct": 3
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.613789,
+          42.023586
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7E7E7E",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "Ames Public Library",
+        "Address": "515 Douglas Ave.",
+        "Precinct": 4
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.612219,
+          42.026189
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7E7E7E",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "Grand Avenue Baptist Church",
+        "Address": "612 24th St.",
+        "Precinct": 5
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.619038,
+          42.045655
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7E7E7E",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "Fire Service Training Bureau",
+        "Address": "1015 Haber Road",
+        "Precinct": 6
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.638915,
+          42.031556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7E7E7E",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "Bethesda Lutheran Church",
+        "Address": "1517 Northwestern Avenue",
+        "Precinct": 7
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.625874,
+          42.037217
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7E7E7E",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "North Grand Christian Church",
+        "Address": "919 30th St.",
+        "Precinct": 8
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.623868,
+          42.051768
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7E7E7E",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "Ascension Lutheran Church",
+        "Address": "2400 Bloomington Road",
+        "Precinct": 9
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.641799,
+          42.056233
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7E7E7E",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "Stonebrook Community Church",
+        "Address": "3611 Eisenhower Avenue",
+        "Precinct": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.638094,
+          42.057731
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7E7E7E",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "Green Hills Retirement Community",
+        "Address": "2205 Green Hills Drive",
+        "Precinct": 11
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.644863,
+          42.002097
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7E7E7E",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "Ames Middle School (Room B111A)",
+        "Address": "3915 Mortensen Road",
+        "Precinct": 12
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.670188,
+          42.011950
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7E7E7E",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "Collegiate United Methodist Church",
+        "Address": "2622 Lincoln Way",
+        "Precinct": 13
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.652360,
+          42.022709
+        ]
+      }
+    },
+        {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7E7E7E",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "Hilton Garden Inn",
+        "Address": "1325 Dickinson Avenue",
+        "Precinct": 14
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.683148,
+          42.010701
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7E7E7E",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "St. Andrew's Lutheran Church",
+        "Address": "209 Colorado Avenue",
+        "Precinct": 15
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.663123,
+          42.024336
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7E7E7E",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "Buchanan Hall Room 2009",
+        "Address": "2160 Lincoln Way",
+        "Precinct": 16
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.640246,
+          42.022682
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7E7E7E",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "Maple Hall Conference Room M01B",
+        "Address": "204 Beach Road",
+        "Precinct": 17
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.639227,
+          42.023650
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7E7E7E",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "Union Drive Community Center Room 136",
+        "Address": "207 Beyer Ct.",
+        "Precinct": 18
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.651102,
+          42.023737
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7E7E7E",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "Collegiate Presbyterian Church",
+        "Address": "159 Sheldon Avenue",
+        "Precinct": 19
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.654322,
+          42.022123
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7E7E7E",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "Trinity Christian Reformed Church",
+        "Address": "3626 Ontario Street",
+        "Precinct": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.667236,
+          42.034420
+        ]
+      }
+    }
+  ]
+}
