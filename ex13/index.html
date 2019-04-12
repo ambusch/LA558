@@ -1,1 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
 
+<meta name="description" content="LA 458/558 AJAX plugin">
+        	
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
+
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+
+<!--Load in Leaflet AJAX loader required for direct loading of GEOJSON files without a var somename = -->
+<script src="https://indicator.extension.iastate.edu/classes/leaflet-ajax-gh-pages/dist/leaflet.ajax.min.js"></script>
+		
+
+	</head>	
+	<body>
+		<div id="map"></div>
+    <style>
+      html, body, #map {
+    height: 700px;
+    margin: 0;
+    padding: 0;
+}
+    </style>
+    <script>
+   //baselayers
+var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+});
+var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+});
+//add map
+var map = L.map('map', {
+    		center: new L.LatLng(42.0908, -93.6208),
+    		zoom: 8,
+    		layers: [Esri_WorldStreetMap]
+		});
+//layer controls
+		var baseMaps = {
+			"ESRI Street Map": Esri_WorldStreetMap,
+			"ESRI World Imagery": Esri_WorldImagery,
+		};
+       		
+		L.control.layers(baseMaps).addTo(map)
+    
+    //set color of marker
+function getColor(d) {
+  return d <= '1' ? 'green' :
+    "green";
+}
+function style(feature) {
+    return {
+        fillColor: getColor(feature.properties.NAME),
+        weight: 1,
+        opacity: 1,
+        color: 'green',
+        dashArray: '2',
+        fillOpacity: 0.7
+    };
+}
+url = "https://ambusch.github.io/LA558/ex13/pollingplaces.geojson";
+var geojsonLayer = new L.GeoJSON.AJAX(url , {
+	style: style,
+	onEachFeature: function (feature, layer) {
+        htmlText = "<strong>" + feature.properties.Name+ "</strong><br>Precinct: <b>"  + feature.properties.Precinct + "</b><br>Address: <b>"  + feature.properties.Address + "</b>";
+        layer.bindPopup(htmlText);
+		layer.bindTooltip(feature.properties.Name);
+    }
+}).addTo(map);   
+    </script>
+	</body>
+</html>
