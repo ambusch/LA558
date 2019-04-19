@@ -31,6 +31,9 @@
 		<div id="mapid" style="width: 600px; height: 400px;"></div>	 
 			 
 <script>
+console.clear();
+//note that http://icons.webtoolhub.com/icon-p4s2023-set.aspx  used for the green icon source.
+
 //JSON of the line
 var myLine = {
   "type": "FeatureCollection",
@@ -109,22 +112,20 @@ var length = turf.lineDistance(myLine, 'miles');
 console.log("myLine = "+ length + " miles");
 
 
-
 //calculates the area of the mPolygon in sq meters and sq miles
 var area = turf.area(myPolygon);
 	console.log(area + " sq meters");
 	console.log(area * 0.000000386102158542 + " sq miles");
 	
-
-//The green marker point on the map
+//changed coordinates, green marker changed
 var myPoint = {
   "type": "Feature",
   "properties": {
-    "marker-color": "#0f0"
+    "marker-color": "red"
   },
   "geometry": {
     "type": "Point",
-    "coordinates": [-93.6,42.00]  //change to 42.05 to cover blue marker and the closest white circle will change
+    "coordinates": [-93.6,42]
   }
 };
 
@@ -168,20 +169,15 @@ var myPointCollection = {
 };
 
 
+//center of point collection
+var center = turf.center(myPointCollection);
 
 
-//This calculation is geodesic distance of the white circle that is closest to the green marker.
 var nearest = turf.nearest(myPoint, myPointCollection);
 
 var nearestID = nearest.properties.id;
 
 console.log(nearest.properties.id);
-
-
-
-
-
-
 
 
 
@@ -210,15 +206,33 @@ var myStyle = {
 
 
 var myPointIcon = L.icon({
-		iconUrl: 'https://profseeger.github.io/LA558/images/chartreuseMapMarker.png',
-		iconSize: [32, 32],
+		iconUrl: 'https://assets.mapquestapi.com/icon/v2/flag@2x.png',
+		iconSize: [50, 20],
 		iconAnchor: [16, 32],
 		//popupAnchor: [0, -28]
 	});
 
+//created new point collection for marker
+var myPointCollectionIcon = L.icon({
+		iconUrl: 'https://assets.mapquestapi.com/icon/v2/incident@2x.png',
+		iconSize: [25, 25],
+		iconAnchor: [16, 32],
+		//popupAnchor: [0, -28]
+	});
+
+
+//added custom marker to point
 startPoint =  L.geoJSON(myPoint, {
 		pointToLayer: function (feature, latlng) {
 			return L.marker(latlng, {icon: myPointIcon});
+		},
+		//onEachFeature: onEachFeature
+	}).addTo(map);
+
+//added custom marker to point collection
+startPoint =  L.geoJSON(myPointCollection, {
+		pointToLayer: function (feature, latlng) {
+			return L.marker(latlng, {icon: myPointCollectionIcon});
 		},
 		//onEachFeature: onEachFeature
 	}).addTo(map);
@@ -233,18 +247,17 @@ L.geoJSON(myPolygon, {
     style: myStyle
 }).addTo(map);
 
-
-//if the ID of the item identified as being the nearest matches d, then change color of item to orange.
+//changed colors to green and red
 function getColor(d) {
-    return d == nearestID ? 'orange' :
-                'white';
+    return d == nearestID ? 'green' :
+                'red';
 }
 
+//changed weight of marker
 var geojsonMarkerOptions = {
     radius: 7,
-    //fillColor: "white",
-    color: "#000",
-    weight: 1,
+    color: "gray",
+    weight: 4,
     opacity: 1,
     fillOpacity: 0.8
 };
@@ -254,9 +267,8 @@ L.geoJSON(myPointCollection, {
         return L.circleMarker(latlng, geojsonMarkerOptions);
     },
 	style: function(feature) {
-	console.log(feature.properties.id);//note this is how you access contents of the id within L.geoJson
+	console.log(feature.properties.id);
 		return {
-					//radius: some property from geojson,
 					fillColor: getColor(feature.properties.id)
 				};
 			},
@@ -264,7 +276,7 @@ L.geoJSON(myPointCollection, {
 				layer.bindPopup("ID: "+feature.properties.id);
 			}
 	
-}).addTo(map);  
+}).addTo(map);
   </script>  
 
 </body>
