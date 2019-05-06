@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
+.topnav {
+  overflow: hidden;
+  background-color: #FFBF00;
+}
+.topnav a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.topnav a:hover {
+  background-color: #FA8258;
+  color: white;	
+	
+	
+	<div class="topnav">
+  <a href="index.html">Home</a>
+  <a href="statecases.html">Leaflet</a>
+  <a href="leaflet.html">QGIS</a>
+  <a href="fortune1000iowa.html">Tableau</a>
+  <a href="highmap.html">Highchart</a>
+  <a href="fhacounty/index.html">Proposal</a>
+</div>
+
+<div class="row">
+  <div class="leftcolumn">
+    <div class="card">
+      <h2 style="font-family:Helvetica;">Most Fair Housing Act Open Cases by State</h2>
+      <h5  style="font-family:Courier;"><a href="https://hifld-geoplatform.opendata.arcgis.com/datasets/a4d813c396934fc09d0b801a0c491852_0?geometry=-99.532%2C28.348%2C-64.42%2C40.951">Source</a></h5>
+<div id="map2"></div>
+    
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+
+	</style>
+</head>
+<body>
+    <style>
+ html, body, #map2 {
+    height: 700px;
+    margin: 0;
+    padding: 0;     
+    </style>
+    
+<script src="https://ambusch.github.io/LA558/finalproject/statecases.js"></script>
+
+<script>
+//source:https://leafletjs.com/examples/choropleth/example-color.html
+//add map
+	var map2 = L.map('map2').setView([37.8, -96], 4);
+//add layer
+	L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+	maxZoom: 16
+}).addTo(map2);
+//get color
+	function getColor(d) {
+		return d > 500 ? '#FF4000' :
+				d > 300  ? '#FF8000' :
+				d > 100  ? '#FE9A2E' :
+				d > 50  ? '#F5DA81' :
+				d > 20   ? '#F5ECCE' :
+				d > 10   ? '#FBFBEF' :
+							'#FFEDA0';
+	}
+
+	function style(feature) {
+		return {
+			weight: 1,
+			opacity: 1,
+			color: 'gray',
+			fillOpacity: 0.7,
+			fillColor: getColor(feature.properties.cases)
+		};
+	}
+
+	// control that shows state info on hover
+	var info = L.control();
+
+	info.onAdd = function (map) {
+		this._div = L.DomUtil.create('div', 'info');
+		this.update();
+		return this._div;
+	};
+
+	info.update = function (props) {
+		this._div.innerHTML = '<h4>Fair Housing Act Cases 2016</h4>' +  (props ?
+			'<b>' + props.name + '</b><br />' + props.cases + ' cases'
+			: 'Hover over a state');
+	};
+
+	info.addTo(map2);
+
+
+	function highlightFeature(e) {
+		var layer = e.target;
+
+		layer.setStyle({
+			weight: 3,
+			color: 'white',
+			dashArray: '',
+			fillOpacity: 0.7
+		});
+
+		if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+			layer.bringToFront();
+		}
+
+		info.update(layer.feature.properties);
+	}
+
+	var geojson;
+
+	function resetHighlight(e) {
+		geojson.resetStyle(e.target);
+		info.update();
+	}
+
+	function zoomToFeature(e) {
+		map.fitBounds(e.target.getBounds());
+	}
+
+	function onEachFeature(feature, layer) {
+		layer.on({
+			mouseover: highlightFeature,
+			mouseout: resetHighlight,
+			click: zoomToFeature
+		});
+	}
+
+	geojson = L.geoJson(statedata, {
+		style: style,
+		onEachFeature: onEachFeature
+	}).addTo(map2);
+
+	map2.attributionControl.addAttribution('Fair Housing Act Data &copy; <a href="http://data.gov/">US Department of Housing and Urban Development</a>');
+
+</script>
+  <p>This cloropleth map shows the states with the most Fair Housing Act cases in 2016. </p>
+	<p>Hover over a state to explore the number of cases by state.</p>
+    </div>
+
+
+
+</body>
+</html>
