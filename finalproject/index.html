@@ -1,1 +1,734 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" /> <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+	  
+	<script src="https://indicator.extension.iastate.edu/classes/leaflet-ajax-gh-pages/dist/leaflet.ajax.min.js"></script>
+    
+<script src="https://ambusch.github.io/LA558/Assign3/fortune1000.geojson"></script>
+<script src="https://ambusch.github.io/LA558/Assign3/fortune500hq.geojson"></script>  
+<script	 src="https://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js">
+    </script>	
+		
+<script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+<script src="https://code.highcharts.com/maps/highmaps.js"></script>
+<script src="https://code.highcharts.com/modules/tilemap.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/offline-exporting.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Final Project</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: "Helvetica Neue";
+  padding: 10px;
+  background: gray;
+}
+/* Formatting Webpage */
+.header {
+  padding: 30px;
+  text-align: center;
+  background: gray;
+}
+.header h1 {
+  font-size: 50px;
+}
+.topnav {
+  overflow: hidden;
+  background-color: #0B2161;
+}
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.topnav a:hover {
+  background-color: #CEE3F6;
+  color: black;
+}
+.leftcolumn {   
+  float: left;
+  width: 75%;
+}
+.rightcolumn {
+  float: left;
+  width: 25%;
+  background-color: #f1f1f1;
+  padding-left: 20px;
+}
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+.card {
+  background-color: white;
+  padding: 20px;
+  margin-top: 20px;
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+  margin-top: 20px;
+}
+  
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {   
+    width: 100%;
+    padding: 0;
+  }
+}
+@media screen and (max-width: 400px) {
+  .topnav a {
+    float: none;
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
 
+<div class="header">
+  <h1>Fair Housing Act Cases and Investigations</h1>
+  <h3>Final Project for LA458 by Anna Busch</h3>
+</div>
+
+<div class="topnav">
+  <a href="index.html">Home</a>
+  <a href="highmap.html">Highmap</a>
+  <a href="fortune1000iowa.html">Iowa Fortune 1000 Companies</a>
+  <a href="leaflet.html" style="float:center">Leaflet Map</a>
+</div>
+
+<div class="row">
+  <div class="leftcolumn">
+    <div class="card">
+      <h2 style="font-family:Helvetica;">Fortune 500 Company Headquarters Heatmap</h2>
+      <h5  style="font-family:Courier;"><a href="https://hifld-geoplatform.opendata.arcgis.com/datasets/a4d813c396934fc09d0b801a0c491852_0?geometry=-99.532%2C28.348%2C-64.42%2C40.951">Source</a></h5>
+<div id="map2"></div>
+    
+    <style>
+ html, body, #map2 {
+    height: 700px;
+    margin: 0;
+    padding: 0;     
+    </style>
+    
+    <script>
+
+var map2;
+      
+//Load geojson file
+var fhacounty = "https://ambusch.github.io/LA558/finalproject/fhacounty/index.html";
+//baselayers
+var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+});
+var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+});
+var JusticeMap_income = L.tileLayer('http://www.justicemap.org/tile/{size}/income/{z}/{x}/{y}.png', {
+	attribution: '<a href="http://www.justicemap.org/terms.php">Justice Map</a>',
+	size: 'county',
+	bounds: [[14, -180], [72, -56]]
+});
+//create the map
+map2 = L.map('map2', {
+  center: new L.LatLng(42.03, -93.651),
+  zoom: 4,
+  layers: [fhacounty]
+});
+//layer controls
+		var baseMaps = {
+			"ESRI Street Map": Esri_WorldStreetMap,
+			"ESRI World Imagery": Esri_WorldImagery,
+		};
+       		
+		var overlayMaps = {
+			"Justice Map: Income": JusticeMap_income,
+		};
+layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map2); 
+      
+      
+    </script>
+      <p>This map shows the concentrations of each of the Fortune 500 headquarters.</p>
+      <p>This map makes it clear that most of the Fortune 500 headquarters are concentrated on the Eastern half of the United States, particularly around the New York region. Concentrations of company headquarters are understandably around urban centers.</p>
+    </div>
+    
+    <div class="card">
+      <h2 style="font-family:sans-serif;">Case Study: Iowa</h2>
+      <h5  style="font-family:Courier;"><a href="https://catalog.data.gov/dataset/fair-housing-act-cases-filed-by-year-and-state">Source</a></h5>
+      <div id="map"></div>
+      
+      <style>
+html, body, 
+#map { height: 500px; margin: 0; padding: 0; }   
+  </style>
+      
+<script src="https://ambusch.github.io/LA558/finalproject/statecases.js"></script>
+
+<script>
+//source:https://leafletjs.com/examples/choropleth/example-color.html
+//add map
+	var map = L.map('map').setView([37.8, -96], 4);
+//add layer
+	L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+	maxZoom: 16
+}).addTo(map);
+//get color
+	function getColor(d) {
+		return d > 500 ? '#FF4000' :
+				d > 300  ? '#FF8000' :
+				d > 100  ? '#FE9A2E' :
+				d > 50  ? '#F5DA81' :
+				d > 20   ? '#F5ECCE' :
+				d > 10   ? '#FBFBEF' :
+							'#FFEDA0';
+	}
+
+	function style(feature) {
+		return {
+			weight: 1,
+			opacity: 1,
+			color: 'gray',
+			fillOpacity: 0.7,
+			fillColor: getColor(feature.properties.cases)
+		};
+	}
+
+	// control that shows state info on hover
+	var info = L.control();
+
+	info.onAdd = function (map) {
+		this._div = L.DomUtil.create('div', 'info');
+		this.update();
+		return this._div;
+	};
+
+	info.update = function (props) {
+		this._div.innerHTML = '<h4>Fair Housing Act Cases 2016</h4>' +  (props ?
+			'<b>' + props.name + '</b><br />' + props.cases + ' cases'
+			: 'Hover over a state');
+	};
+
+	info.addTo(map);
+
+
+	function highlightFeature(e) {
+		var layer = e.target;
+
+		layer.setStyle({
+			weight: 3,
+			color: 'white',
+			dashArray: '',
+			fillOpacity: 0.7
+		});
+
+		if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+			layer.bringToFront();
+		}
+
+		info.update(layer.feature.properties);
+	}
+
+	var geojson;
+
+	function resetHighlight(e) {
+		geojson.resetStyle(e.target);
+		info.update();
+	}
+
+	function zoomToFeature(e) {
+		map.fitBounds(e.target.getBounds());
+	}
+
+	function onEachFeature(feature, layer) {
+		layer.on({
+			mouseover: highlightFeature,
+			mouseout: resetHighlight,
+			click: zoomToFeature
+		});
+	}
+
+	geojson = L.geoJson(statedata, {
+		style: style,
+		onEachFeature: onEachFeature
+	}).addTo(map);
+
+	map.attributionControl.addAttribution('Fair Housing Act Data &copy; <a href="http://data.gov/">US Department of Housing and Urban Development</a>');
+
+</script>
+
+  <p>This cloropleth map shows the states with the most Fair Housing Act cases in 2016. </p>
+	<p>Hover over a state to explore the number of cases by state.</p>
+    </div>
+    
+    <div class="card">
+      <h2 style="font-family:Helvetica;">Basis of Investigation per Case</h2>
+      <h5  style="font-family:Courier;"><a>Source: CEO.com</a></h5>
+      <p>This map shows the counts of states with Fortune 500 company headquarters.</p>
+      <div id="container"></div>
+<style>
+#container {
+	min-width: 420px;
+	max-width: 650px;
+	margin: 0 auto;
+}
+</style>
+<script>
+Highcharts.chart('container', {
+    chart: {
+        type: 'tilemap',
+        inverted: true,
+        height: '80%'
+    },
+    title: {
+        text: 'Location of Fortune 500 Company Headquarters 2018'
+    },
+    subtitle: {
+        text: 'Source:<a href="https://www.ceo.com/miscellaneous/states-with-the-most-fortune-500-companies"> CEO.com</a>'
+    },
+    xAxis: {
+        visible: false
+    },
+    yAxis: {
+        visible: false
+    },
+    colorAxis: {
+        dataClasses: [{
+            from: 0,
+            color: '#D6EAF8',
+            name: '0'
+        }, {
+            from: 1,
+            to: 5,
+            color: '#85C1E9',
+            name: '1-5'
+         }, {
+            from: 6,
+            to: 15,
+            color: '#85C1E9',
+            name: '6-15'
+        }, {
+            from: 16,
+            to: 25,
+            color: '#2E86C1',
+            name: '16-25'
+        }, {
+            from: 26,
+            color: '#21618C',
+            name: '>26'
+        }]
+    },
+    tooltip: {
+        headerFormat: '',
+        pointFormat: 'The number of Fortune 500 Companies in <b> {point.name}</b> is <b>{point.value}</b> companies.'
+    },
+    plotOptions: {
+        series: {
+            dataLabels: {
+                enabled: true,
+                format: '{point.hc-a2}',
+                color: '#000000',
+                style: {
+                    textOutline: false
+                }
+            }
+        }
+    },
+    series: [{
+        name: '',
+        data: [{
+            'hc-a2': 'AL',
+            name: 'Alabama',
+            region: 'South',
+            x: 6,
+            y: 7,
+            value: 1
+        }, {
+            'hc-a2': 'AK',
+            name: 'Alaska',
+            region: 'West',
+            x: 0,
+            y: 0,
+            value: 0
+        }, {
+            'hc-a2': 'AZ',
+            name: 'Arizona',
+            region: 'West',
+            x: 5,
+            y: 3,
+            value: 6
+        }, {
+            'hc-a2': 'AR',
+            name: 'Arkansas',
+            region: 'South',
+            x: 5,
+            y: 6,
+            value: 6
+        }, {
+            'hc-a2': 'CA',
+            name: 'California',
+            region: 'West',
+            x: 5,
+            y: 2,
+            value: 54
+        }, {
+            'hc-a2': 'CO',
+            name: 'Colorado',
+            region: 'West',
+            x: 4,
+            y: 3,
+            value: 10
+        }, {
+            'hc-a2': 'CT',
+            name: 'Connecticut',
+            region: 'Northeast',
+            x: 3,
+            y: 11,
+            value: 16
+        }, {
+            'hc-a2': 'DC',
+            name: 'District of Colombia',
+            region: 'South',
+            x: 5,
+            y: 10,
+            value: 3
+        }, {
+            'hc-a2': 'DE',
+            name: 'Delaware',
+            region: 'South',
+            x: 4,
+            y: 9,
+            value: 2
+        }, {
+            'hc-a2': 'FL',
+            name: 'Florida',
+            region: 'South',
+            x: 8,
+            y: 8,
+            value: 15
+        }, {
+            'hc-a2': 'GA',
+            name: 'Georgia',
+            region: 'South',
+            x: 7,
+            y: 8,
+            value: 16
+        }, {
+            'hc-a2': 'HI',
+            name: 'Hawaii',
+            region: 'West',
+            x: 8,
+            y: 0,
+            value: 0
+        }, {
+            'hc-a2': 'ID',
+            name: 'Idaho',
+            region: 'West',
+            x: 3,
+            y: 2,
+            value: 1
+        }, {
+            'hc-a2': 'IL',
+            name: 'Illinois',
+            region: 'Midwest',
+            x: 3,
+            y: 6,
+            value: 32
+        }, {
+            'hc-a2': 'IN',
+            name: 'Indiana',
+            region: 'Midwest',
+            x: 3,
+            y: 7,
+            value: 6
+        }, {
+            'hc-a2': 'IA',
+            name: 'Iowa',
+            region: 'Midwest',
+            x: 3,
+            y: 5,
+            value: 2
+        }, {
+            'hc-a2': 'KS',
+            name: 'Kansas',
+            region: 'Midwest',
+            x: 5,
+            y: 5,
+            value: 3
+        }, {
+            'hc-a2': 'KY',
+            name: 'Kentucky',
+            region: 'South',
+            x: 4,
+            y: 6,
+            value: 5
+        }, {
+            'hc-a2': 'LA',
+            name: 'Louisiana',
+            region: 'South',
+            x: 6,
+            y: 5,
+            value: 3
+        }, {
+            'hc-a2': 'ME',
+            name: 'Maine',
+            region: 'Northeast',
+            x: 0,
+            y: 11,
+            value: 0
+        }, {
+            'hc-a2': 'MD',
+            name: 'Maryland',
+            region: 'South',
+            x: 4,
+            y: 8,
+            value: 4
+        }, {
+            'hc-a2': 'MA',
+            name: 'Massachusetts',
+            region: 'Northeast',
+            x: 2,
+            y: 10,
+            value: 12
+        }, {
+            'hc-a2': 'MI',
+            name: 'Michigan',
+            region: 'Midwest',
+            x: 2,
+            y: 7,
+            value: 19
+        }, {
+            'hc-a2': 'MN',
+            name: 'Minnesota',
+            region: 'Midwest',
+            x: 2,
+            y: 4,
+            value: 19
+        }, {
+            'hc-a2': 'MS',
+            name: 'Mississippi',
+            region: 'South',
+            x: 6,
+            y: 6,
+            value: 0
+        }, {
+            'hc-a2': 'MO',
+            name: 'Missouri',
+            region: 'Midwest',
+            x: 4,
+            y: 5,
+            value: 10
+        }, {
+            'hc-a2': 'MT',
+            name: 'Montana',
+            region: 'West',
+            x: 2,
+            y: 2,
+            value: 0
+        }, {
+            'hc-a2': 'NE',
+            name: 'Nebraska',
+            region: 'Midwest',
+            x: 4,
+            y: 4,
+            value: 5
+        }, {
+            'hc-a2': 'NV',
+            name: 'Nevada',
+            region: 'West',
+            x: 4,
+            y: 2,
+            value: 4
+        }, {
+            'hc-a2': 'NH',
+            name: 'New Hampshire',
+            region: 'Northeast',
+            x: 1,
+            y: 11,
+            value: 0
+        }, {
+            'hc-a2': 'NJ',
+            name: 'New Jersey',
+            region: 'Northeast',
+            x: 3,
+            y: 10,
+            value: 21
+        }, {
+            'hc-a2': 'NM',
+            name: 'New Mexico',
+            region: 'West',
+            x: 6,
+            y: 3,
+            value: 0
+        }, {
+            'hc-a2': 'NY',
+            name: 'New York',
+            region: 'Northeast',
+            x: 2,
+            y: 9,
+            value: 52
+        }, {
+            'hc-a2': 'NC',
+            name: 'North Carolina',
+            region: 'South',
+            x: 5,
+            y: 9,
+            value: 12
+        }, {
+            'hc-a2': 'ND',
+            name: 'North Dakota',
+            region: 'Midwest',
+            x: 2,
+            y: 3,
+            value: 0
+        }, {
+            'hc-a2': 'OH',
+            name: 'Ohio',
+            region: 'Midwest',
+            x: 3,
+            y: 8,
+            value: 27
+        }, {
+            'hc-a2': 'OK',
+            name: 'Oklahoma',
+            region: 'South',
+            x: 6,
+            y: 4,
+            value: 4
+        }, {
+            'hc-a2': 'OR',
+            name: 'Oregon',
+            region: 'West',
+            x: 4,
+            y: 1,
+            value: 2
+        }, {
+            'hc-a2': 'PA',
+            name: 'Pennsylvania',
+            region: 'Northeast',
+            x: 3,
+            y: 9,
+            value: 21
+        }, {
+            'hc-a2': 'RI',
+            name: 'Rhode Island',
+            region: 'Northeast',
+            x: 2,
+            y: 11,
+            value: 3
+        }, {
+            'hc-a2': 'SC',
+            name: 'South Carolina',
+            region: 'South',
+            x: 6,
+            y: 8,
+            value: 1
+        }, {
+            'hc-a2': 'SD',
+            name: 'South Dakota',
+            region: 'Midwest',
+            x: 3,
+            y: 4,
+            value: 0
+        }, {
+            'hc-a2': 'TN',
+            name: 'Tennessee',
+            region: 'South',
+            x: 5,
+            y: 7,
+            value: 9
+        }, {
+            'hc-a2': 'TX',
+            name: 'Texas',
+            region: 'South',
+            x: 7,
+            y: 4,
+            value: 52
+        }, {
+            'hc-a2': 'UT',
+            name: 'Utah',
+            region: 'West',
+            x: 5,
+            y: 4,
+            value: 1
+        }, {
+            'hc-a2': 'VT',
+            name: 'Vermont',
+            region: 'Northeast',
+            x: 1,
+            y: 10,
+            value: 0
+        }, {
+            'hc-a2': 'VA',
+            name: 'Virginia',
+            region: 'South',
+            x: 5,
+            y: 8,
+            value: 23
+        }, {
+            'hc-a2': 'WA',
+            name: 'Washington',
+            region: 'West',
+            x: 2,
+            y: 1,
+            value: 8
+        }, {
+            'hc-a2': 'WV',
+            name: 'West Virginia',
+            region: 'South',
+            x: 4,
+            y: 7,
+            value: 0
+        }, {
+            'hc-a2': 'WI',
+            name: 'Wisconsin',
+            region: 'Midwest',
+            x: 2,
+            y: 5,
+            value: 10
+        }, {
+            'hc-a2': 'WY',
+            name: 'Wyoming',
+            region: 'West',
+            x: 3,
+            y: 3,
+            value: 0
+        }]
+    }]
+});
+</script>
+      <p>The states with the largest amount of Fortune 500 company headquarters are California, New York, Texas, Illinois, and Ohio.</p>
+    </div>
+  </div>
+  <div class="rightcolumn">
+    <div class="card">
+      <h2  style="font-family:Helvetica;"></h2>
+      <p  style="font-family:Helvetica;">This project explores Fair Housing Act cases. Data utilized in this project is available through the Department of Housing and Urban Development. This website utilizes the most recent available data (2016). </p>
+<div class='tableauPlaceholder' id='viz1557132857224' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FiledCases2&#47;Dashboard7&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FiledCases2&#47;Dashboard7' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FiledCases2&#47;Dashboard7&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1557132857224');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='300px';vizElement.style.height='2527px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script></script>
+	  </div>
+</div>
+</div>
+   
+
+<div class="footer">
+</div>
+
+</body>
+</html>
