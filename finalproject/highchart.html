@@ -57,25 +57,26 @@
   <a href="data.html">Datasets</a>
 </div>
 </head>
-<body>
+<body>  
+      <h2 style="font-family:Helvetica;">Basis of Investigation per Case</h2>
+      <h5  style="font-family:Courier;"><a href="https://catalog.data.gov/dataset/fair-housing-act-cases-filed-by-year-and-state">Source</a></h5>
+      <p>This chart compares the types of claims between 2006 and 2016. The data shows seven protected classes in which complaints can be filed under the Fair Housing Act.</p>
+      <div id="container"></div>
 <style>
 #container {
 	min-width: 420px;
 	max-width: 650px;
 	margin: 0 auto;
 }
-</style>  
+</style>
 <script>
 Highcharts.chart('container', {
-
     title: {
         text: 'Number of Filed Fair Housing Act Cases: 2006-2016'
     },
-
     subtitle: {
         text: 'Source: data.gov'
     },
-
     yAxis: {
         title: {
             text: 'Number of Filed Cases'
@@ -86,7 +87,6 @@ Highcharts.chart('container', {
         align: 'right',
         verticalAlign: 'middle'
     },
-
     plotOptions: {
         series: {
             label: {
@@ -95,7 +95,6 @@ Highcharts.chart('container', {
             pointStart: 2006
         }
     },
-
     series: [{
         name: 'Race',
         data: [4070, 3779, 3670, 3251, 3536, 2851, 2382, 2362, 2505, 2245, 2168]
@@ -118,7 +117,6 @@ Highcharts.chart('container', {
         name: 'Retaliation',
         data: [648, 576, 629, 666, 787, 828, 965, 913, 915, 819, 764]
     }],
-
     responsive: {
         rules: [{
             condition: {
@@ -133,7 +131,6 @@ Highcharts.chart('container', {
             }
         }]
     }
-
 });
 </script>
 </body>
