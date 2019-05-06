@@ -27,32 +27,32 @@
 body {
   font-family: "Helvetica Neue";
   padding: 10px;
-  background: gray;
+  background: #F7F2E0;
 }
 /* Formatting Webpage */
 .header {
   padding: 30px;
   text-align: center;
-  background: gray;
+  background: white;
 }
 .header h1 {
   font-size: 50px;
 }
 .topnav {
   overflow: hidden;
-  background-color: #0B2161;
+  background-color: #FFBF00;
 }
 .topnav a {
   float: left;
   display: block;
-  color: #f2f2f2;
+  color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
 }
 .topnav a:hover {
-  background-color: #CEE3F6;
-  color: black;
+  background-color: #FA8258;
+  color: white;
 }
 .leftcolumn {   
   float: left;
@@ -61,7 +61,7 @@ body {
 .rightcolumn {
   float: left;
   width: 25%;
-  background-color: #f1f1f1;
+  background-color: #F7F2E0;
   padding-left: 20px;
 }
 .fakeimg {
@@ -117,56 +117,113 @@ body {
 <div class="row">
   <div class="leftcolumn">
     <div class="card">
-      <h2 style="font-family:Helvetica;">Fortune 500 Company Headquarters Heatmap</h2>
+      <h2 style="font-family:Helvetica;">States with the most Fair Housing Act Open Cases</h2>
       <h5  style="font-family:Courier;"><a href="https://hifld-geoplatform.opendata.arcgis.com/datasets/a4d813c396934fc09d0b801a0c491852_0?geometry=-99.532%2C28.348%2C-64.42%2C40.951">Source</a></h5>
-<div id="map2"></div>
+<div id="map"></div>
     
     <style>
- html, body, #map2 {
+ html, body, #map {
     height: 700px;
     margin: 0;
     padding: 0;     
     </style>
     
-    <script>
+<script src="https://ambusch.github.io/LA558/finalproject/statecases.js"></script>
 
-var map2;
-      
-//Load geojson file
-var fhacounty = "https://ambusch.github.io/LA558/finalproject/fhacounty/index.html";
-//baselayers
-var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
-});
-var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-});
-var JusticeMap_income = L.tileLayer('http://www.justicemap.org/tile/{size}/income/{z}/{x}/{y}.png', {
-	attribution: '<a href="http://www.justicemap.org/terms.php">Justice Map</a>',
-	size: 'county',
-	bounds: [[14, -180], [72, -56]]
-});
-//create the map
-map2 = L.map('map2', {
-  center: new L.LatLng(42.03, -93.651),
-  zoom: 4,
-  layers: [fhacounty]
-});
-//layer controls
-		var baseMaps = {
-			"ESRI Street Map": Esri_WorldStreetMap,
-			"ESRI World Imagery": Esri_WorldImagery,
+<script>
+//source:https://leafletjs.com/examples/choropleth/example-color.html
+//add map
+	var map = L.map('map').setView([37.8, -96], 4);
+//add layer
+	L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+	maxZoom: 16
+}).addTo(map);
+//get color
+	function getColor(d) {
+		return d > 500 ? '#FF4000' :
+				d > 300  ? '#FF8000' :
+				d > 100  ? '#FE9A2E' :
+				d > 50  ? '#F5DA81' :
+				d > 20   ? '#F5ECCE' :
+				d > 10   ? '#FBFBEF' :
+							'#FFEDA0';
+	}
+
+	function style(feature) {
+		return {
+			weight: 1,
+			opacity: 1,
+			color: 'gray',
+			fillOpacity: 0.7,
+			fillColor: getColor(feature.properties.cases)
 		};
-       		
-		var overlayMaps = {
-			"Justice Map: Income": JusticeMap_income,
-		};
-layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map2); 
-      
-      
-    </script>
-      <p>This map shows the concentrations of each of the Fortune 500 headquarters.</p>
-      <p>This map makes it clear that most of the Fortune 500 headquarters are concentrated on the Eastern half of the United States, particularly around the New York region. Concentrations of company headquarters are understandably around urban centers.</p>
+	}
+
+	// control that shows state info on hover
+	var info = L.control();
+
+	info.onAdd = function (map) {
+		this._div = L.DomUtil.create('div', 'info');
+		this.update();
+		return this._div;
+	};
+
+	info.update = function (props) {
+		this._div.innerHTML = '<h4>Fair Housing Act Cases 2016</h4>' +  (props ?
+			'<b>' + props.name + '</b><br />' + props.cases + ' cases'
+			: 'Hover over a state');
+	};
+
+	info.addTo(map);
+
+
+	function highlightFeature(e) {
+		var layer = e.target;
+
+		layer.setStyle({
+			weight: 3,
+			color: 'white',
+			dashArray: '',
+			fillOpacity: 0.7
+		});
+
+		if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+			layer.bringToFront();
+		}
+
+		info.update(layer.feature.properties);
+	}
+
+	var geojson;
+
+	function resetHighlight(e) {
+		geojson.resetStyle(e.target);
+		info.update();
+	}
+
+	function zoomToFeature(e) {
+		map.fitBounds(e.target.getBounds());
+	}
+
+	function onEachFeature(feature, layer) {
+		layer.on({
+			mouseover: highlightFeature,
+			mouseout: resetHighlight,
+			click: zoomToFeature
+		});
+	}
+
+	geojson = L.geoJson(statedata, {
+		style: style,
+		onEachFeature: onEachFeature
+	}).addTo(map);
+
+	map.attributionControl.addAttribution('Fair Housing Act Data &copy; <a href="http://data.gov/">US Department of Housing and Urban Development</a>');
+
+</script>
+  <p>This cloropleth map shows the states with the most Fair Housing Act cases in 2016. </p>
+	<p>Hover over a state to explore the number of cases by state.</p>
     </div>
     
     <div class="card">
@@ -184,7 +241,7 @@ html, body,
 <script>
 //source:https://leafletjs.com/examples/choropleth/example-color.html
 //add map
-	var map = L.map('map').setView([37.8, -96], 4);
+	var map2 = L.map('map').setView([37.8, -96], 4);
 //add layer
 	L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
 	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
@@ -721,7 +778,7 @@ Highcharts.chart('container', {
     <div class="card">
       <h2  style="font-family:Helvetica;"></h2>
       <p  style="font-family:Helvetica;">This project explores Fair Housing Act cases. Data utilized in this project is available through the Department of Housing and Urban Development. This website utilizes the most recent available data (2016). </p>
-<div class='tableauPlaceholder' id='viz1557132857224' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FiledCases2&#47;Dashboard7&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FiledCases2&#47;Dashboard7' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FiledCases2&#47;Dashboard7&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1557132857224');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='300px';vizElement.style.height='2527px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script></script>
+<div class='tableauPlaceholder' id='viz1557132857224' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FiledCases2&#47;Dashboard7&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FiledCases2&#47;Dashboard7' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FiledCases2&#47;Dashboard7&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1557132857224');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='280px';vizElement.style.height='2358px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script></script>
 	  </div>
 </div>
 </div>
