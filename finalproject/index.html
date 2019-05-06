@@ -107,16 +107,19 @@ body {
 
 <div class="topnav">
   <a href="index.html">Home</a>
-  <a href="highmap.html">Highmap</a>
-  <a href="fortune1000iowa.html">Iowa Fortune 1000 Companies</a>
-  <a href="leaflet.html" style="float:center">Leaflet Map</a>
+  <a href="statecases.html">Leaflet</a>
+  <a href="fhacounty/index.html">QGIS/Leaflet</a>
+  <a href="https://public.tableau.com/views/FiledCases/Dashboard7?:embed=y&:display_count=yes&publish=yes">Tableau</a>
+  <a href="highchart.html">Highchart</a>
+  <a href="proposal.html">Proposal</a>
+  <a href="data.html">Datasets</a>
 </div>
 
 <div class="row">
   <div class="leftcolumn">
     <div class="card">
-      <h2 style="font-family:Helvetica;">States with the most Fair Housing Act Open Cases</h2>
-      <h5  style="font-family:Courier;"><a href="https://hifld-geoplatform.opendata.arcgis.com/datasets/a4d813c396934fc09d0b801a0c491852_0?geometry=-99.532%2C28.348%2C-64.42%2C40.951">Source</a></h5>
+      <h2 style="font-family:Helvetica;">Most Fair Housing Act Open Cases by State</h2>
+      <a href="https://catalog.data.gov/dataset/fair-housing-act-cases-filed-by-year-and-state">Source</a></h5>
 <div id="map2"></div>
     
     <style>
@@ -147,7 +150,7 @@ body {
 				d > 10   ? '#FBFBEF' :
 							'#FFEDA0';
 	}
-
+//style
 	function style(feature) {
 		return {
 			weight: 1,
@@ -158,7 +161,7 @@ body {
 		};
 	}
 
-	// control that shows state info on hover
+	//hover control
 	var info = L.control();
 
 	info.onAdd = function (map) {
@@ -166,7 +169,7 @@ body {
 		this.update();
 		return this._div;
 	};
-
+//name data
 	info.update = function (props) {
 		this._div.innerHTML = '<h4>Fair Housing Act Cases 2016</h4>' +  (props ?
 			'<b>' + props.name + '</b><br />' + props.cases + ' cases'
@@ -192,7 +195,7 @@ body {
 
 		info.update(layer.feature.properties);
 	}
-
+//geojson
 	var geojson;
 
 	function resetHighlight(e) {
@@ -226,8 +229,8 @@ body {
     
     <div class="card">
       <h2 style="font-family:sans-serif;">Case Study: Iowa</h2>
-      <h5  style="font-family:Courier;"><a href="https://catalog.data.gov/dataset/fair-housing-act-cases-filed-by-year-and-state">Source</a></h5>
-      <iframe src="https://ambusch.github.io/LA558/finalproject/fhacounty/index.html#8/41.371/-92.650" style="height:500px;width:100%;margin:0;padding:0;border:none"></iframe>
+      <h5  style="font-family:Courier;"><a href="https://catalog.data.gov/dataset/fheo-filed-cases">Source</a></h5>
+      <iframe src="https://ambusch.github.io/LA558/finalproject/fhacounty/index.html" style="height:500px;width:100%;margin:0;padding:0;border:none"></iframe>
 
   <p>This cloropleth map shows the states with the most Fair Housing Act cases in 2016. </p>
 	<p>Hover over a state to explore the number of cases by state.</p>
@@ -235,7 +238,7 @@ body {
     
     <div class="card">
       <h2 style="font-family:Helvetica;">Basis of Investigation per Case</h2>
-      <h5  style="font-family:Courier;"><a>Source: CEO.com</a></h5>
+      <h5  style="font-family:Courier;"><a href="https://catalog.data.gov/dataset/fair-housing-act-cases-filed-by-year-and-state">Source</a></h5>
       <p>This map shows the counts of states with Fortune 500 company headquarters.</p>
       <div id="container"></div>
 <style>
@@ -249,7 +252,7 @@ body {
 Highcharts.chart('container', {
 
     title: {
-        text: 'Number of Filed Fair Housing Act Cases by Basis'
+        text: 'Number of Filed Fair Housing Act Cases: 2006-2016'
     },
 
     subtitle: {
@@ -323,7 +326,7 @@ Highcharts.chart('container', {
     <div class="card">
       <h2  style="font-family:Helvetica;"></h2>
       <p  style="font-family:Helvetica;">This project explores Fair Housing Act cases. Data utilized in this project is available through the Department of Housing and Urban Development. This website utilizes the most recent available data (2016). </p>
-<div class='tableauPlaceholder' id='viz1557132857224' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FiledCases2&#47;Dashboard7&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FiledCases2&#47;Dashboard7' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FiledCases2&#47;Dashboard7&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1557132857224');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='280px';vizElement.style.height='2358px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+<div class='tableauPlaceholder' id='viz1557132857224' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FiledCases2&#47;Dashboard7&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FiledCases2&#47;Dashboard7' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FiledCases2&#47;Dashboard7&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1557132857224');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width=280;vizElement.style.height='2358px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
 	  </div>
 </div>
 </div>
