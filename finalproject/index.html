@@ -5,11 +5,10 @@
   <meta name="viewport" content="width=device-width">
   
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" /> <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
 	  
 	<script src="https://indicator.extension.iastate.edu/classes/leaflet-ajax-gh-pages/dist/leaflet.ajax.min.js"></script>
-    
-<script src="https://ambusch.github.io/LA558/Assign3/fortune1000.geojson"></script>
-<script src="https://ambusch.github.io/LA558/Assign3/fortune500hq.geojson"></script>  
 <script	 src="https://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js">
     </script>	
 		
@@ -119,10 +118,10 @@ body {
     <div class="card">
       <h2 style="font-family:Helvetica;">States with the most Fair Housing Act Open Cases</h2>
       <h5  style="font-family:Courier;"><a href="https://hifld-geoplatform.opendata.arcgis.com/datasets/a4d813c396934fc09d0b801a0c491852_0?geometry=-99.532%2C28.348%2C-64.42%2C40.951">Source</a></h5>
-<div id="map"></div>
+<div id="map2"></div>
     
     <style>
- html, body, #map {
+ html, body, #map2 {
     height: 700px;
     margin: 0;
     padding: 0;     
@@ -133,12 +132,12 @@ body {
 <script>
 //source:https://leafletjs.com/examples/choropleth/example-color.html
 //add map
-	var map = L.map('map').setView([37.8, -96], 4);
+	var map2 = L.map('map2').setView([37.8, -96], 4);
 //add layer
 	L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
 	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
 	maxZoom: 16
-}).addTo(map);
+}).addTo(map2);
 //get color
 	function getColor(d) {
 		return d > 500 ? '#FF4000' :
@@ -175,7 +174,7 @@ body {
 			: 'Hover over a state');
 	};
 
-	info.addTo(map);
+	info.addTo(map2);
 
 
 	function highlightFeature(e) {
@@ -217,9 +216,9 @@ body {
 	geojson = L.geoJson(statedata, {
 		style: style,
 		onEachFeature: onEachFeature
-	}).addTo(map);
+	}).addTo(map2);
 
-	map.attributionControl.addAttribution('Fair Housing Act Data &copy; <a href="http://data.gov/">US Department of Housing and Urban Development</a>');
+	map2.attributionControl.addAttribution('Fair Housing Act Data &copy; <a href="http://data.gov/">US Department of Housing and Urban Development</a>');
 
 </script>
   <p>This cloropleth map shows the states with the most Fair Housing Act cases in 2016. </p>
@@ -229,107 +228,7 @@ body {
     <div class="card">
       <h2 style="font-family:sans-serif;">Case Study: Iowa</h2>
       <h5  style="font-family:Courier;"><a href="https://catalog.data.gov/dataset/fair-housing-act-cases-filed-by-year-and-state">Source</a></h5>
-      <div id="map"></div>
-      
-      <style>
-html, body, 
-#map { height: 500px; margin: 0; padding: 0; }   
-  </style>
-      
-<script src="https://ambusch.github.io/LA558/finalproject/statecases.js"></script>
-
-<script>
-//source:https://leafletjs.com/examples/choropleth/example-color.html
-//add map
-	var map2 = L.map('map').setView([37.8, -96], 4);
-//add layer
-	L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
-	maxZoom: 16
-}).addTo(map);
-//get color
-	function getColor(d) {
-		return d > 500 ? '#FF4000' :
-				d > 300  ? '#FF8000' :
-				d > 100  ? '#FE9A2E' :
-				d > 50  ? '#F5DA81' :
-				d > 20   ? '#F5ECCE' :
-				d > 10   ? '#FBFBEF' :
-							'#FFEDA0';
-	}
-
-	function style(feature) {
-		return {
-			weight: 1,
-			opacity: 1,
-			color: 'gray',
-			fillOpacity: 0.7,
-			fillColor: getColor(feature.properties.cases)
-		};
-	}
-
-	// control that shows state info on hover
-	var info = L.control();
-
-	info.onAdd = function (map) {
-		this._div = L.DomUtil.create('div', 'info');
-		this.update();
-		return this._div;
-	};
-
-	info.update = function (props) {
-		this._div.innerHTML = '<h4>Fair Housing Act Cases 2016</h4>' +  (props ?
-			'<b>' + props.name + '</b><br />' + props.cases + ' cases'
-			: 'Hover over a state');
-	};
-
-	info.addTo(map);
-
-
-	function highlightFeature(e) {
-		var layer = e.target;
-
-		layer.setStyle({
-			weight: 3,
-			color: 'white',
-			dashArray: '',
-			fillOpacity: 0.7
-		});
-
-		if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-			layer.bringToFront();
-		}
-
-		info.update(layer.feature.properties);
-	}
-
-	var geojson;
-
-	function resetHighlight(e) {
-		geojson.resetStyle(e.target);
-		info.update();
-	}
-
-	function zoomToFeature(e) {
-		map.fitBounds(e.target.getBounds());
-	}
-
-	function onEachFeature(feature, layer) {
-		layer.on({
-			mouseover: highlightFeature,
-			mouseout: resetHighlight,
-			click: zoomToFeature
-		});
-	}
-
-	geojson = L.geoJson(statedata, {
-		style: style,
-		onEachFeature: onEachFeature
-	}).addTo(map);
-
-	map.attributionControl.addAttribution('Fair Housing Act Data &copy; <a href="http://data.gov/">US Department of Housing and Urban Development</a>');
-
-</script>
+      <iframe src="https://ambusch.github.io/LA558/finalproject/fhacounty/index.html#8/41.371/-92.650" style="height:500px;width:100%;margin:0;padding:0;border:none"></iframe>
 
   <p>This cloropleth map shows the states with the most Fair Housing Act cases in 2016. </p>
 	<p>Hover over a state to explore the number of cases by state.</p>
@@ -778,7 +677,7 @@ Highcharts.chart('container', {
     <div class="card">
       <h2  style="font-family:Helvetica;"></h2>
       <p  style="font-family:Helvetica;">This project explores Fair Housing Act cases. Data utilized in this project is available through the Department of Housing and Urban Development. This website utilizes the most recent available data (2016). </p>
-<div class='tableauPlaceholder' id='viz1557132857224' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FiledCases2&#47;Dashboard7&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FiledCases2&#47;Dashboard7' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FiledCases2&#47;Dashboard7&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1557132857224');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='280px';vizElement.style.height='2358px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script></script>
+<div class='tableauPlaceholder' id='viz1557132857224' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FiledCases2&#47;Dashboard7&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FiledCases2&#47;Dashboard7' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;FiledCases2&#47;Dashboard7&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1557132857224');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='280px';vizElement.style.height='2358px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
 	  </div>
 </div>
 </div>
