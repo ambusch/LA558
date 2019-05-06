@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Highchart</title>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>  
+  <style>
+	html, body {
+		height: 100%;
+		margin: 0;
+		font-family: "Helvetica Neue";
+	}
+.topnav {
+  overflow: hidden;
+  background-color: #FFBF00;
+}
+.topnav a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.topnav a:hover {
+  background-color: #FA8258;
+  color: white;
+}
+.topnav {
+  overflow: hidden;
+  background-color: #FFBF00;
+}
+.topnav a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.topnav a:hover {
+  background-color: #FA8258;
+  color: white;	
+	</style>	
+	
+<div class="topnav">
+  <a href="index.html">Home</a>
+  <a href="statecases.html">Leaflet</a>
+  <a href="fhacounty/index.html">QGIS/Leaflet</a>
+  <a href="https://public.tableau.com/views/FiledCases/Dashboard7?:embed=y&:display_count=yes&publish=yes">Tableau</a>
+  <a href="highchart.html">Highchart</a>
+  <a href="proposal.html">Proposal</a>
+  <a href="data.html">Datasets</a>
+</div>
+</head>
+<body>
+<style>
+#container {
+	min-width: 420px;
+	max-width: 650px;
+	margin: 0 auto;
+}
+</style>  
+<script>
+Highcharts.chart('container', {
+
+    title: {
+        text: 'Number of Filed Fair Housing Act Cases: 2006-2016'
+    },
+
+    subtitle: {
+        text: 'Source: data.gov'
+    },
+
+    yAxis: {
+        title: {
+            text: 'Number of Filed Cases'
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+    },
+
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: 2006
+        }
+    },
+
+    series: [{
+        name: 'Race',
+        data: [4070, 3779, 3670, 3251, 3536, 2851, 2382, 2362, 2505, 2245, 2168]
+    }, {
+        name: 'National Origin',
+        data: [1449, 1315, 1407, 1282, 1248, 1120, 1084, 972, 1100, 912, 935]
+    }, {
+        name: 'Disability',
+        data: [4341, 4479, 4668, 4574, 4878, 4384, 4300, 4385, 4754, 4560, 4961]
+    }, {
+        name: 'Familial Status',
+        data: [1499, 1471, 1906, 1847, 1564, 1406, 1202, 1147, 1075, 1012, 854]
+    }, {
+        name: 'Religion',
+        data: [271, 281, 359, 275, 320, 223, 231, 225, 227, 225, 214]
+    }, {
+        name: 'Sex',
+        data: [1025, 1087, 1181, 1051, 1200, 955, 1061, 945, 924, 871, 807]
+    }, {
+        name: 'Retaliation',
+        data: [648, 576, 629, 666, 787, 828, 965, 913, 915, 819, 764]
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+</script>
+</body>
+</html>
