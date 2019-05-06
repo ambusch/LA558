@@ -6,6 +6,23 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
+<style>
+.topnav {
+  overflow: hidden;
+  background-color: #FFBF00;
+}
+.topnav a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.topnav a:hover {
+  background-color: #FA8258;
+  color: white;
+}
 .topnav {
   overflow: hidden;
   background-color: #FFBF00;
@@ -21,9 +38,9 @@
 .topnav a:hover {
   background-color: #FA8258;
   color: white;	
+	</style>	
 	
-	
-	<div class="topnav">
+<div class="topnav">
   <a href="index.html">Home</a>
   <a href="statecases.html">Leaflet</a>
   <a href="leaflet.html">QGIS</a>
@@ -32,18 +49,16 @@
   <a href="fhacounty/index.html">Proposal</a>
 </div>
 
-<div class="row">
-  <div class="leftcolumn">
-    <div class="card">
       <h2 style="font-family:Helvetica;">Most Fair Housing Act Open Cases by State</h2>
       <h5  style="font-family:Courier;"><a href="https://hifld-geoplatform.opendata.arcgis.com/datasets/a4d813c396934fc09d0b801a0c491852_0?geometry=-99.532%2C28.348%2C-64.42%2C40.951">Source</a></h5>
 <div id="map2"></div>
     
-	<style>
-		html, body {
-			height: 100%;
-			margin: 0;
-		}
+<style>
+	html, body {
+		height: 100%;
+		margin: 0;
+		font-family: "Helvetica Neue";
+	}
 
 	</style>
 </head>
