@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="Ex5">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Exercise 5</title>
+	
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" /> <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+
+	
+</head>
+<body>
+  <h1>ISU Buildings</h1>
+  <h3>Places I had class this year</h3><br>
+<div id='map'></div>	
+	<button id="College of Design">Iowa State University College of Design</button>
+<style>
+#map {
+     width: 500px;
+     height: 400px;
+}  
+  </style>
+  <script>
+//attribution:https://jsbin.com/petewuv/edit?html,css,js,output
+//baselayers
+var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+});
+
+//add map
+var map = L.map('map', {
+    		center: new L.LatLng(42.02728, -93.64809),
+    		zoom: 15,
+    		layers: [Esri_WorldStreetMap]
+		});
+
+//add array
+var buildings = [
+	[42.02863, -93.65332, "College of Design"],
+	[42.02668, -93.64415, "Ross Hall"],
+	[42.02623, -93.64485, "Curtiss Hall"],
+  [42.02954, -93.64402, "Kildee Hall"],
+  [42.02939, -93.64639, "Science Hall"],
+];
+
+//add marker
+for (var i = 0; i < buildings.length; i++) {
+	marker = new L.marker([buildings[i][0],buildings[i][1]])
+	.bindPopup(buildings[i][2])
+	.addTo(map);
+}    
+  </script>
+</body>
+</html>
